@@ -1,3 +1,16 @@
+First fork keychron git repo of qmk: https://github.com/Keychron/qmk_firmware (with branch wireless_playground).
+
+```
+qmk setup -H ~/workspace/fabien.mairesse/keeb/qmk/keychron_firmware -b wireless_playground fmairesse/keychron_firmware
+qmk config user.keyboard=keychron/k15_max/ansi_encoder/rgb
+qmk new-keymap  # use fmairesse for the name of the keymap
+qmk config user.keymap=fmairesse
+qmk compile
+# Unplug the keyboard and replug it holding esc key for 4 secs
+qmk flash
+```
+
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
