@@ -28,11 +28,23 @@ enum layers {
     NAV_LSC,
 };
 
+// #region Tap dances
+enum tap_dances {
+    TD_SFT_CAPS,
+};
+
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Shift, twice for Caps Lock
+    [TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+};
+// #endregion
+
 // #region Key aliases
 #define BASE_W     LT(NAV_LSA,KC_W)
 #define BASE_E     LT(NAV_LSC,KC_E)
 #define ZOOM_IN    LCTL(KC_EQL)
 #define ZOOM_OUT   LCTL(KC_MINS)
+#define SFT_CAPS   TD(TD_SFT_CAPS)
 // #endregion
 
 // clang-format off
@@ -56,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_BASE] = LAYOUT_ansi_90(
         KC_MUTE,  KC_ESC,   KC_F1,            KC_F2,           KC_F3,          KC_F4,            KC_F5,      KC_F6,          KC_F7,          KC_F8,           KC_F9,         KC_F10,              KC_F11,   KC_F12,   KC_INS,             KC_DEL,
         MC_1,     KC_0,     KC_1,             KC_2,            KC_3,           KC_4,             KC_5,       KC_6,           KC_7,           KC_8,            KC_9,          KC_0,                KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
-        MC_2,     KC_TAB,   KC_Q,             BASE_W,          BASE_E,         KC_R,             KC_T,       KC_Y,           KC_U,           KC_I,            KC_O,          KC_P,                KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
-        MC_3,     KC_CAPS,  LT(NAV_L,KC_A),   LALT_T(KC_S),    LCTL_T(KC_D),   LSFT_T(KC_F),     KC_G,       KC_H,           RSFT_T(KC_J),   RCTL_T(KC_K),    LALT_T(KC_L),  LT(NAV_R,KC_SCLN),   KC_QUOT,            KC_ENT,             KC_END,
-        MC_4,     KC_LSFT,  KC_Z,             KC_X,            KC_C,           KC_V,             KC_B,       KC_B,           KC_N,           KC_M,            KC_COMM,       KC_DOT,              KC_SLSH,  KC_RSFT,  KC_UP,
+        MC_2,     KC_ESC,   KC_Q,             BASE_W,          BASE_E,         KC_R,             KC_T,       KC_Y,           KC_U,           KC_I,            KC_O,          KC_P,                KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
+        MC_3,     KC_TAB,   LT(NAV_L,KC_A),   LALT_T(KC_S),    LCTL_T(KC_D),   LSFT_T(KC_F),     KC_G,       KC_H,           RSFT_T(KC_J),   RCTL_T(KC_K),    LALT_T(KC_L),  LT(NAV_R,KC_SCLN),   KC_QUOT,            KC_ENT,             KC_END,
+        MC_4,     SFT_CAPS, KC_Z,             KC_X,            KC_C,           KC_V,             KC_B,       KC_B,           KC_N,           KC_M,            KC_COMM,       KC_DOT,              KC_SLSH,  KC_RSFT,  KC_UP,
         MC_5,     KC_LCTL,  KC_LWIN,                          LALT_T(KC_BSPC), LCTL_T(KC_SPC), LT(WIN_FN,KC_DEL), RALT_T(KC_SPC), RALT_T(KC_ENT), KC_RCTL,      KC_LEFT,      KC_DOWN,  KC_RGHT),
 
     [WIN_FN] = LAYOUT_ansi_90(
