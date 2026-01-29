@@ -148,3 +148,15 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+// #region Key overrides
+const key_override_t delete_key_override_bspc = ko_make_basic(MOD_MASK_ALT, KC_BSPC, KC_DEL);
+const key_override_t delete_key_override_thumb = ko_make_basic(MOD_MASK_ALT, LALT_T(KC_BSPC), KC_DEL);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+	&delete_key_override_bspc,
+    &delete_key_override_thumb,
+	NULL // Null terminates the array of overrides
+};
+// #endregion
