@@ -1,47 +1,78 @@
-/* Copyright 2024 @ Keychron (https://www.keychron.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
+//#region Layers
+enum layers {
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN,
+    _NAV,
+};
+//#endregion Layers
+
+// #region Key aliases
+#define _A      LT(_NAV,KC_A)
+#define _S      LALT_T(KC_S)
+#define _D      LCTL_T(KC_D)
+#define _F      LSFT_T(KC_F)
+#define _J      RSFT_T(KC_J)
+#define _K      RCTL_T(KC_K)
+#define _L      LALT_T(KC_L)
+#define _SCLN   LT(_NAV,KC_SCLN)
+#define _T1LEFT LALT_T(KC_BSPC)
+#define _T2LEFT LCTL_T(KC_SPC)
+#define _T3LEFT LT(WIN_FN, KC_DEL)
+#define _T2RGHT RALT_T(KC_SPC)
+#define _T1RGHT RALT_T(KC_DEL)
+
+#define _ZOIN   LCTL(KC_EQUAL)
+#define _ZOOUT  LCTL(KC_MINUS)
+#define _WBAK   LCTL_T(KC_WBAK)
+#define _WFWD   LSFT_T(KC_WFWD)
+// #endregion
+
 //#region Combos
-const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_ESC, LCTL_T(KC_SPC), COMBO_END};
+const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_ESC, _T2RGHT, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
 };
 //#endregion Combos
 
-enum layers {
-    MAC_BASE,
-    MAC_FN,
-    WIN_BASE,
-    WIN_FN,
-    NAV_L,
-    NAV_R,
-    NAV_LSA,
-    NAV_LSC,
+//#region Key Overrides
+const key_override_t w_override = {
+    .trigger_mods      = MOD_MASK_CTRL | MOD_BIT_LALT | MOD_MASK_GUI,
+    .layers            = (1UL << MAC_BASE) | (1UL << WIN_BASE),
+    .negative_mod_mask = 0,
+    .suppressed_mods   = 0,
+    .replacement       = KC_LEFT_BRACKET,
+    .trigger           = KC_W,
+    .options           = ko_options_default | ko_option_one_mod,
+    .custom_action     = NULL,
+    .context           = NULL,
+    .enabled           = NULL,
+};
+const key_override_t z_override = {
+    .trigger_mods      = MOD_MASK_CTRL | MOD_BIT_LALT | MOD_MASK_GUI,
+    .layers            = (1UL << MAC_BASE) | (1UL << WIN_BASE),
+    .negative_mod_mask = 0,
+    .suppressed_mods   = 0,
+    .trigger           = KC_Z,
+    .replacement       = KC_RIGHT_BRACKET,
+    .options           = ko_options_default | ko_option_one_mod,
+    .custom_action     = NULL,
+    .context           = NULL,
+    .enabled           = NULL,
 };
 
-// #region Key aliases
-#define BASE_W     LT(NAV_LSA,KC_W)
-#define BASE_E     LT(NAV_LSC,KC_E)
-#define ZOOM_IN    LCTL(KC_EQL)
-#define ZOOM_OUT   LCTL(KC_MINS)
-// #endregion
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &w_override,
+    &z_override,
+    NULL,
+};
+//#endregion Key Overrides
+
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,      KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
         MC_3,     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,      KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
         MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
-        MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,  MO(MAC_FN),                    KC_SPC,             KC_RCMMD, KC_RCTL,             KC_LEFT,  KC_DOWN,  KC_RGHT),
+        MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,   MO(MAC_FN),                   KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_ansi_90(
-        RGB_TOG,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11, KC_F12,   _______,            _______,
+        RGB_TOG,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,            _______,
         _______,  _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            KC_END,
@@ -62,83 +93,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
 
     [WIN_BASE] = LAYOUT_ansi_90(
-        KC_MUTE,  KC_ESC,   KC_F1,            KC_F2,           KC_F3,          KC_F4,            KC_F5,      KC_F6,          KC_F7,          KC_F8,           KC_F9,         KC_F10,              KC_F11,   KC_F12,   KC_INS,             KC_DEL,
-        MC_1,     KC_ESC,   KC_1,             KC_2,            KC_3,           KC_4,             KC_5,       KC_6,           KC_7,           KC_8,            KC_9,          KC_0,                KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGDN,
-        MC_2,     KC_TAB,   KC_Q,             BASE_W,          BASE_E,         KC_R,             KC_T,       KC_Y,           KC_U,           KC_I,            KC_O,          KC_P,                KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
-        MC_3,     KC_CAPS,  LT(NAV_L,KC_A),   LALT_T(KC_S),    LCTL_T(KC_D),   LSFT_T(KC_F),     KC_G,       KC_H,           RSFT_T(KC_J),   RCTL_T(KC_K),    LALT_T(KC_L),  LT(NAV_R,KC_SCLN),   KC_QUOT,            KC_ENT,             KC_END,
-        MC_4,     KC_LSFT,  KC_Z,             KC_X,            KC_C,           KC_V,             KC_B,       KC_B,           KC_N,           KC_M,            KC_COMM,       KC_DOT,              KC_SLSH,  KC_RSFT,  KC_UP,
-        MC_5,     KC_LCTL,  KC_LWIN,                          LALT_T(KC_BSPC), LCTL_T(KC_SPC), LT(WIN_FN,KC_DEL), RALT_T(KC_SPC), KC_RALT, KC_RCTL,      KC_LEFT,      KC_DOWN,  KC_RGHT),
+        KC_MUTE,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
+        MC_1,     KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGDN,
+        MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
+        MC_3,     KC_CAPS,  _A,       _S,       _D,       _F,       KC_G,     KC_H,     _J,       _K,       _L,       _SCLN,    KC_QUOT,            KC_ENT,             KC_END,
+        MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
+        MC_5,     KC_LCTL,  KC_LWIN,            _T1LEFT,  _T2LEFT,  _T3LEFT,                      _T2RGHT,            _T1RGHT,  KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [WIN_FN] = LAYOUT_ansi_90(
-        RGB_TOG,  _______,  KC_BRID,          KC_BRIU,         KC_TASK,        KC_FILE,          RGB_VAD,    RGB_VAI,        KC_MPRV,         KC_MPLY,         KC_MNXT,       KC_MUTE,             KC_VOLD,  KC_VOLU,  _______,            _______,
-        _______,  _______,  BT_HST1,          BT_HST2,         BT_HST3,        P2P4G,            _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            KC_PGUP,
-        _______,  RGB_TOG,  RGB_MOD,          RGB_VAI,         RGB_HUI,        RGB_SAI,          RGB_SPI,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  RGB_RMOD,         KC_PSCR,         RGB_HUD,        RGB_SAD,          RGB_SPD,    _______,        _______,         _______,         _______,       _______,             _______,            _______,            _______,
-        _______,  _______,                    _______,         _______,        _______,          _______,    BAT_LVL,        BAT_LVL,         NK_TOGG,         _______,       _______,             _______,  _______,  _______,  _______,
+        RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
+        _______,  _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            KC_PGUP,
+        _______,  RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______,  RGB_RMOD, KC_PSCR,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
+        _______,  _______,            _______,  _______,  _______,  _______,  BAT_LVL,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
 
-    [NAV_L] = LAYOUT_ansi_90(
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  KC_ESC,           XXXXXXX,         ZOOM_OUT,        ZOOM_IN,         XXXXXXX,    KC_PGUP,        KC_HOME,         KC_UP,           KC_END,        KC_ESC,              _______,  _______,  _______,            _______,
-        _______,  _______,  KC_TAB,           KC_LALT,         LCTL_T(KC_WBAK), LSFT_T(KC_WFWD), XXXXXXX,    KC_PGDN,        KC_LEFT,         KC_DOWN,         KC_RGHT,       KC_TAB,              _______,            _______,            _______,
-        _______,  _______,                    XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    XXXXXXX,        KC_WBAK,         KC_WFWD,         ZOOM_OUT,      ZOOM_IN,             _______,  _______,  _______,  _______,
-        _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
-
-    [NAV_R] = LAYOUT_ansi_90(
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  KC_ESC,           KC_HOME,         KC_UP,           KC_END,          KC_PGUP,    XXXXXXX,        ZOOM_OUT,        ZOOM_IN,         XXXXXXX,       KC_ESC,              _______,  _______,  _______,            _______,
-        _______,  _______,  KC_TAB,           KC_LEFT,         KC_DOWN,         KC_RGHT,         KC_PGDN,    XXXXXXX,        LSFT_T(KC_WBAK), LCTL_T(KC_WFWD), KC_LALT,       KC_TAB,              _______,            _______,            KC_END,
-        _______,  _______,                    ZOOM_OUT,        ZOOM_IN,         KC_WBAK,         KC_WFWD,    XXXXXXX,        XXXXXXX,         XXXXXXX,         XXXXXXX,       XXXXXXX,             _______,  _______,  _______,  _______,
-        _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
-
-    [NAV_LSA] = LAYOUT_ansi_90(
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  KC_ESC,           XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    KC_PGUP,        KC_HOME,         LSA(KC_UP),      KC_END,        KC_ESC,              _______,  _______,  _______,            _______,
-        _______,  _______,  KC_TAB,           XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    KC_PGDN,        LSA(KC_LEFT),    LSA(KC_DOWN),    LSA(KC_RGHT),  KC_TAB,              _______,            _______,            KC_END,
-        _______,  _______,                    XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    XXXXXXX,        XXXXXXX,         XXXXXXX,         XXXXXXX,       XXXXXXX,             _______,  _______,  _______,  _______,
-        _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
-
-    [NAV_LSC] = LAYOUT_ansi_90(
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  _______,          _______,         _______,         _______,         _______,    _______,        _______,         _______,         _______,       _______,             _______,  _______,  _______,            _______,
-        _______,  _______,  KC_ESC,           XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    KC_PGUP,        KC_HOME,         RCS(KC_UP),      KC_END,        KC_ESC,              _______,  _______,  _______,            _______,
-        _______,  _______,  KC_TAB,           XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    KC_PGDN,        RCS(KC_LEFT),    RCS(KC_DOWN),    RCS(KC_RGHT),  KC_TAB,              _______,            _______,            KC_END,
-        _______,  _______,                    XXXXXXX,         XXXXXXX,         XXXXXXX,         XXXXXXX,    XXXXXXX,        XXXXXXX,         XXXXXXX,         XXXXXXX,       XXXXXXX,             _______,  _______,  _______,  _______,
-        _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
+    [_NAV] = LAYOUT_ansi_90(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______,  KC_ESC,   XXXXXXX,  _ZOOUT,   _ZOIN,    XXXXXXX,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_ESC,   _______,  _______,  _______,            _______,
+        _______,  _______,  KC_TAB,   KC_LALT,  _WBAK,    _WFWD,    XXXXXXX,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
+        _______,  _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,            _______,  _______,  _______,                      KC_ENT,             _______,  _______,            _______,  _______,  _______),
 };
 
-#if defined(ENCODER_MAP_ENABLE)
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-        [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-        [MAC_FN] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-        [WIN_BASE]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-        [WIN_FN]  = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-        [NAV_L]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-        [NAV_R]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-        [NAV_LSA]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-        [NAV_LSC]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    };
-#endif // ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [MAC_FN]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [WIN_FN]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [_NAV]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+};
 
 // clang-format on
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
     // Quick software reset handler
     if (keycode == QK_BOOT && record->event.pressed) {
         reset_keyboard();
+    } else if (!process_record_keychron_common(keycode, record)) {
+        return false;
     }
     return true;
 }
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LALT_T(KC_BSPC):
-        case LCTL_T(KC_SPC):
+        case _T1LEFT:
+        case _T2LEFT:
+        case _T1RGHT:
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
