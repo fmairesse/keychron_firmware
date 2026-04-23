@@ -45,10 +45,10 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _DEL    RSFT_T(KC_DEL)
 
 // Thumbs
-#define _TLEFT1 LCTL_T(KC_BSPC)
+#define _TLEFT1 LCTL_T(KC_NONUS_BACKSLASH)
 #define _TLEFT2 LT(_NUMPAD,KC_SPC)
 #define _TRGHT2 LT(_NUMROW,KC_SPC)
-#define _TRGHT1 KC_RALT
+#define _TRGHT1 RALT_T(KC_LEFT_BRACKET)
 
 // Shortcuts
 #define _ZOIN   LCTL(KC_MINUS)
