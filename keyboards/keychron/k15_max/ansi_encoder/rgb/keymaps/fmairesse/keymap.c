@@ -12,20 +12,27 @@ enum layers {
 //#endregion Layers
 
 // #region Key aliases
+
+// Left alphas
 #define _A      LT(_NAV,KC_A)
 #define _S      LALT_T(KC_S)
 #define _D      LCTL_T(KC_D)
 #define _F      LSFT_T(KC_F)
+
+// Right alphas
 #define _J      RSFT_T(KC_J)
 #define _K      RCTL_T(KC_K)
 #define _L      LALT_T(KC_L)
 #define _SCLN   LT(_NAV,KC_SCLN)
+
+// Thumbs
 #define _T1LEFT LALT_T(KC_BSPC)
 #define _T2LEFT LCTL_T(KC_SPC)
-#define _T3LEFT LT(WIN_FN, KC_DEL)
+#define _T3LEFT LT(WIN_FN, KC_BSPC)
 #define _T2RGHT RALT_T(KC_SPC)
 #define _T1RGHT RALT_T(KC_DEL)
 
+// Shortcuts
 #define _ZOIN   LCTL(KC_EQUAL)
 #define _ZOOUT  LCTL(KC_MINUS)
 #define _WBAK   LCTL_T(KC_WBAK)
@@ -46,7 +53,7 @@ const key_override_t w_override = {
     .layers            = (1UL << MAC_BASE) | (1UL << WIN_BASE),
     .negative_mod_mask = 0,
     .suppressed_mods   = 0,
-    .replacement       = KC_LEFT_BRACKET,
+    .replacement       = KC_BSLS,
     .trigger           = KC_W,
     .options           = ko_options_default | ko_option_one_mod,
     .custom_action     = NULL,
