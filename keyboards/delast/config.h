@@ -16,3 +16,6 @@
 
 #define COMBO_TERM 50 // Time (in ms) that keys must be pressed to register as a combo
 #define COMBO_MUST_HOLD_PER_COMBO // Only trigger combos if all keys are held, not just tapped
+
+#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
