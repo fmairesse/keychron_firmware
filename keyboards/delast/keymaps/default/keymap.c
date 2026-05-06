@@ -3,7 +3,8 @@
 //#region Layers
 enum layers {
     _BASE,
-    _NAV,
+    _NAVLEFT,  // nav layer triggered by left pinky
+    _NAVRIGHT, // nav layer triggered by right pinky
     _NUMPAD,
     _NUMROW,
     _FKEYS 
@@ -27,7 +28,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _LSFT   KC_LSFT
 
 // Left alphas
-#define _A      LT(_NAV,KC_A)
+#define _A      LT(_NAVLEFT,KC_A)
 #define _S      LALT_T(KC_S)
 #define _D      LCTL_T(KC_D)
 #define _F      LSFT_T(KC_F)
@@ -37,7 +38,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _J      RSFT_T(KC_J)
 #define _K      RCTL_T(KC_K)
 #define _L      LALT_T(KC_L)
-#define _SCLN   LT(_NAV,KC_SCLN)
+#define _SCLN   LT(_NAVRIGHT,KC_SCLN)
 #define _COMM   KC_COMM
 
 // Right pinkies
@@ -125,11 +126,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _TLEFT1,   _TLEFT2,   _TRGHT2,   _TRGHT1,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
 
-    [_NAV] = LAYOUT(
-        _______,   KC_ESC,    XXXXXXX,   _ZOIN,     _ZOOUT,    XXXXXXX,   XXXXXXX,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
-        _______,   KC_TAB,    _______,   _WBAK,     _WFWD,     XXXXXXX,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
+    // nav layer triggered by left pinky
+    [_NAVLEFT] = LAYOUT(
+        _______,   XXXXXXX,   XXXXXXX,   _ZOIN,     _ZOOUT,    XXXXXXX,   XXXXXXX,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
+        _______,   XXXXXXX,   KC_LALT,   _WBAK,     _WFWD,     XXXXXXX,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
+        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
+    ),
+
+    // nav layer triggered by right pinky
+    [_NAVRIGHT] = LAYOUT(
+        _______,   KC_ESC,    XXXXXXX,   _ZOIN,     _ZOOUT,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        _______,   KC_TAB,    XXXXXXX,   _WBAK,     _WFWD,     XXXXXXX,   XXXXXXX,   KC_RSFT,   KC_RCTL,   KC_LALT,   XXXXXXX,   XXXXXXX,
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        _______,   _______,   _______,   XXXXXXX,   KC_BSPC,   KC_ENT,    _______,   _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
     ),
 
     [_NUMPAD] = LAYOUT(
@@ -157,7 +167,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Configuration for rotary turns per layer
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NAV]     = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_NAVLEFT] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_NAVRIGHT]= { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUMPAD]  = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUMROW]  = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_FKEYS]   = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) }
