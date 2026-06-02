@@ -61,7 +61,7 @@ tap_dance_action_t tap_dance_actions[] = {
 //#region Combos
 const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _TRGHT2, COMBO_END};
 const uint16_t PROGMEM slash_combo[] = {KC_DOT, KC_UP, COMBO_END};
-const uint16_t PROGMEM caps_combo[] = {KC_LSFT, KC_Z, COMBO_END};
+const uint16_t PROGMEM caps_combo[] = {_LSFT, KC_Z, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {_BSPC, KC_P, COMBO_END};
 
 combo_t key_combos[] = {
