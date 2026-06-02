@@ -3,8 +3,7 @@
 //#region Layers
 enum layers {
     _BASE,
-    _NAVLEFT,  // nav layer triggered by left pinky
-    _NAVRIGHT, // nav layer triggered by right pinky
+    _NAV,
     _NUMPAD,
     _NUMROW,
     _FKEYS 
@@ -12,6 +11,7 @@ enum layers {
 //#endregion Layers
 
 //#region Aliases
+#define _TNPAD  TG(_NUMPAD)
 
 // Left pinkies
 #define _ESC    LT(_FKEYS,KC_ESC)
@@ -19,7 +19,7 @@ enum layers {
 #define _LSFT   LSFT_T(KC_NONUS_BACKSLASH)
 
 // Left alphas
-#define _A      LT(_NAVLEFT,KC_A)
+#define _A      LT(_NAV,KC_A)
 #define _S      LALT_T(KC_S)
 #define _D      LCTL_T(KC_D)
 #define _F      LSFT_T(KC_F)
@@ -29,7 +29,7 @@ enum layers {
 #define _J      RSFT_T(KC_J)
 #define _K      RCTL_T(KC_K)
 #define _L      LALT_T(KC_L)
-#define _SCLN   LT(_NAVRIGHT,KC_SCLN)
+#define _SCLN   LT(_NUMROW,KC_SEMICOLON)
 #define _COMM   KC_COMM
 
 // Right pinkies
@@ -41,6 +41,7 @@ enum layers {
 #define _TLEFT2 LT(_NUMPAD,KC_SPC)
 #define _TRGHT2 LT(_NUMROW,KC_SPC)
 #define _TRGHT1 RALT_T(KC_LEFT_BRACKET)
+#define _TNPAD  TG(_NUMPAD)
 
 // Shortcuts
 #define _ZOIN   LCTL(KC_MINUS)
@@ -63,12 +64,16 @@ const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _TRGHT2, COMBO_END};
 const uint16_t PROGMEM slash_combo[] = {KC_DOT, KC_UP, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {_LSFT, KC_Z, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {_BSPC, KC_P, COMBO_END};
+const uint16_t PROGMEM numpad_on_combo[] = {KC_O, KC_P, _BSPC, COMBO_END};
+const uint16_t PROGMEM numpad_off_combo[] = {KC_7, KC_8, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
     COMBO(slash_combo, KC_SLSH),
     COMBO(caps_combo, KC_CAPS),
-    COMBO(del_combo, KC_DEL)
+    COMBO(del_combo, KC_DEL),
+    COMBO(numpad_on_combo, _TNPAD),
+    COMBO(numpad_off_combo, _TNPAD),
 };
 //#endregion Combos
 
@@ -127,31 +132,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     // nav layer triggered by left pinky
-    [_NAVLEFT] = LAYOUT(
+    [_NAV] = LAYOUT(
         _______,   XXXXXXX,   XXXXXXX,   _ZOIN,     _ZOOUT,    XXXXXXX,   XXXXXXX,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
         _______,   XXXXXXX,   KC_LALT,   _WBAK,     _WFWD,     XXXXXXX,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
         _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
     ),
 
-    // nav layer triggered by right pinky
-    [_NAVRIGHT] = LAYOUT(
-        _______,   KC_ESC,    XXXXXXX,   _ZOIN,     _ZOOUT,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-        _______,   KC_TAB,    XXXXXXX,   _WBAK,     _WFWD,     XXXXXXX,   XXXXXXX,   KC_RSFT,   KC_RCTL,   KC_LALT,   XXXXXXX,   XXXXXXX,
-        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-        _______,   _______,   _______,   XXXXXXX,   KC_BSPC,   KC_ENT,    _______,   _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
-    ),
-
     [_NUMPAD] = LAYOUT(
         _______,   RALT(KC_Q),RALT(KC_W),RALT(KC_E),RALT(KC_R),RALT(KC_T),RALT(KC_Y),RALT(KC_L),RALT(KC_I),KC_7,      KC_8,      KC_9,
         _______,   RALT(KC_A),RALT(KC_S),RALT(KC_D),RALT(KC_F),RALT(KC_G),RALT(KC_L),RALT(KC_J),RALT(KC_K),KC_4,      KC_5,      KC_6,
         _______,   RALT(KC_Z),RALT(KC_X),RALT(KC_C),RALT(KC_V),RALT(KC_B),RALT(KC_N),RALT(KC_M),XXXXXXX,   KC_1,      KC_2,      KC_3,
-        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   _______,   KC_BSPC,   XXXXXXX,   KC_0,      KC_PCMM,   KC_PENT
+        _______,   _______,   _______,   XXXXXXX,   _______,   _TNPAD,    _______,   KC_BSPC,   XXXXXXX,   KC_0,      KC_PCMM,   KC_PENT
     ),
 
     [_NUMROW] = LAYOUT(
-        KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      RALT(KC_T),RALT(KC_Y),RALT(KC_U),RALT(KC_I),RALT(KC_O),RALT(KC_P),_______,
-        KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      RALT(KC_G),RALT(KC_H),RALT(KC_J),RALT(KC_K),RALT(KC_L),XXXXXXX,   _______,
+        KC_0,      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      RALT(KC_Y),RALT(KC_U),RALT(KC_I),RALT(KC_O),RALT(KC_P),_______,
+        _______,   KC_6,      KC_7,      KC_8,      KC_9,      RALT(KC_G),RALT(KC_H),RALT(KC_J),RALT(KC_K),RALT(KC_L),XXXXXXX,   _______,
         _______,   RALT(KC_Z),RALT(KC_X),RALT(KC_C),RALT(KC_V),RALT(KC_B),RALT(KC_N),RALT(KC_M),_______,   _______,   _______,   _______,
         _______,   _______,   _______,   XXXXXXX,   _______,   _______,   _______,   _______,   XXXXXXX,   _______,   _______,   _______
     ),
@@ -167,8 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Configuration for rotary turns per layer
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NAVLEFT] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
-    [_NAVRIGHT]= { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_NAV] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUMPAD]  = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUMROW]  = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_FKEYS]   = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) }
