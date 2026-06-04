@@ -11,21 +11,12 @@ enum layers {
 };
 //#endregion Layers
 
-//#region Tap Dance
-enum {
-    TD_CAPSLOCK,
-};
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
-};
-//#endregion Tap Dance
-
 //#region Aliases
 
 // Left pinkies
 #define _ESC    LT(_FKEYS,KC_ESC)
 #define _TAB    KC_TAB
-#define _LSFT   KC_LSFT
+#define _LSFT   LSFT_T(KC_NONUS_BACKSLASH)
 
 // Left alphas
 #define _A      LT(_NAVLEFT,KC_A)
@@ -57,6 +48,15 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _WBAK   LCTL_T(KC_WBAK)
 #define _WFWD   LSFT_T(KC_WFWD)
 //#endregion Aliases
+
+//#region Tap Dance
+enum {
+    TD_CAPSLOCK,
+};
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(_LSFT, KC_CAPS)
+};
+//#endregion Tap Dance
 
 //#region Combos
 const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _TRGHT2, COMBO_END};
