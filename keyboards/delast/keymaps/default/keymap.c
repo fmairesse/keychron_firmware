@@ -6,12 +6,14 @@ enum layers {
     _NAV,
     _NUMPAD,
     _NUMROW,
-    _FKEYS 
+    _FKEYS
 };
 //#endregion Layers
 
 //#region Aliases
 #define _TNPAD  TG(_NUMPAD)
+#define _1DK    KC_LEFT_BRACKET
+#define _MAGIC  _RSFT
 
 // Left pinkies
 #define _ESC    LT(_FKEYS,KC_ESC)
@@ -34,14 +36,13 @@ enum layers {
 
 // Right pinkies
 #define _BSPC   LT(_FKEYS,KC_BSPC)
-#define _DEL    RSFT_T(KC_DEL)
+#define _RSFT   RSFT_T(KC_M) // whatever tap keycode, used for the magic key
 
 // Thumbs
-#define _TLEFT1 LCTL_T(KC_NONUS_BACKSLASH)
+#define _TLEFT1 LCTL_T(KC_DEL)
 #define _TLEFT2 LT(_NUMPAD,KC_SPC)
 #define _TRGHT2 LT(_NUMROW,KC_SPC)
-#define _TRGHT1 RALT_T(KC_LEFT_BRACKET)
-#define _TNPAD  TG(_NUMPAD)
+#define _TRGHT1 RALT_T(_1DK)
 
 // Shortcuts
 #define _ZOIN   LCTL(KC_MINUS)
@@ -127,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         _ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      _BSPC,
         _TAB,      _A,        _S,        _D,        _F,        KC_G,      KC_H,      _J,        _K,        _L,        _SCLN,     KC_ENT,
-        _LSFT,     KC_Z,      KC_X,      KC_C,      _V,        KC_B,      KC_N,      KC_M,      _COMM,     KC_DOT,    KC_UP,     _DEL,
+        _LSFT,     KC_Z,      KC_X,      KC_C,      _V,        KC_B,      KC_N,      KC_M,      _COMM,     KC_DOT,    KC_UP,     _RSFT,
         KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _TLEFT1,   _TLEFT2,   _TRGHT2,   _TRGHT1,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
 
@@ -214,10 +215,75 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 //     }
 // }
 
-// Quick software reset handler
+// State variable to track the last pressed alpha key for the Magic Key logic
+uint16_t last_keycode = KC_NO;
+
+// Custom behavior and Quick software reset handler
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (keycode == QK_BOOT && record->event.pressed) {
-      reset_keyboard();
-  }
-  return true;
+    if (keycode == QK_BOOT && record->event.pressed) {
+        reset_keyboard();
+        return true;
+    }
+
+    // MAGIC KEY INTERCEPT
+    if (keycode == _MAGIC) {
+        // record->tap.count > 0 means QMK resolved this as a tap, not a hold.
+        if (record->tap.count > 0) {
+            if (record->event.pressed) {
+                switch (last_keycode) {
+                    case KC_T: // t* → the·
+                        SEND_STRING("hk ");
+                        break;
+                    case KC_W: // w* → which·
+                        SEND_STRING("hich ");
+                        break;
+                    case KC_C: // c* → ctrl
+                        SEND_STRING("t");
+                        break;
+                    case KC_S: // s* → should·
+                        SEND_STRING("hould ");
+                        break;
+                    case KC_G: // g* → git·
+                        SEND_STRING("it ");
+                        break;
+                    case KC_Q: // q* → quand·
+                        SEND_STRING("uajd ");
+                        break;
+                    case KC_Y: // y* → analy
+                        SEND_STRING("\bajaly");
+                        break;
+                    default:
+                    // tap_code(_1DK);
+                    break;
+                }
+            }
+            last_keycode = KC_NO;
+            // Return false on BOTH press and release to completely block the magic key from reaching the OS
+            return false;
+        }
+        // If tap.count == 0, it is a hold. Return true so QMK handles the RALT modifier normally.
+        return true;
+    }
+
+    // MAGIC KEY TRACKING: Extract base keycode to track previous tap
+    if (record->event.pressed) {
+        uint16_t base_keycode = keycode;
+
+        // Strip out Layer-Tap and Mod-Tap modifiers to find the actual alpha pressed
+        if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+            (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+            base_keycode = keycode & 0xFF;
+        }
+
+        // Only track standard alphas A-Z
+        if (base_keycode >= KC_A && base_keycode <= KC_Z) {
+            last_keycode = base_keycode;
+        }
+        // Reset tracking on space/backspace/enter to prevent unintended cross-word combos
+        else { //if (base_keycode == KC_SPACE || base_keycode == KC_BSPC || base_keycode == KC_ENT) {
+            last_keycode = KC_NO;
+        }
+    }
+
+    return true;
 }
