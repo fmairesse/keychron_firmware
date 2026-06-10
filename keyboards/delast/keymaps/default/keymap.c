@@ -13,7 +13,7 @@ enum layers {
 //#region Aliases
 #define _TNPAD  TG(_NUMPAD)
 #define _1DK    KC_LEFT_BRACKET
-#define _MAGIC  _RSFT
+// #define _MAGIC  _RSFT
 
 // Left pinkies
 #define _ESC    LT(_FKEYS,KC_ESC)
@@ -36,7 +36,7 @@ enum layers {
 
 // Right pinkies
 #define _BSPC   LT(_FKEYS,KC_BSPC)
-#define _RSFT   RSFT_T(KC_M) // whatever tap keycode, used for the magic key
+#define _RSFT   RSFT_T(KC_SLASH)
 
 // Thumbs
 #define _TLEFT1 LCTL_T(KC_DEL)
@@ -62,7 +62,6 @@ tap_dance_action_t tap_dance_actions[] = {
 
 //#region Combos
 const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _TRGHT2, COMBO_END};
-const uint16_t PROGMEM slash_combo[] = {KC_DOT, KC_UP, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {_LSFT, KC_Z, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {_BSPC, KC_P, COMBO_END};
 const uint16_t PROGMEM numpad_on_combo[] = {KC_O, KC_P, _BSPC, COMBO_END};
@@ -70,7 +69,6 @@ const uint16_t PROGMEM numpad_off_combo[] = {KC_7, KC_8, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
-    COMBO(slash_combo, KC_SLSH),
     COMBO(caps_combo, KC_CAPS),
     COMBO(del_combo, KC_DEL),
     COMBO(numpad_on_combo, _TNPAD),
@@ -225,65 +223,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return true;
     }
 
-    // MAGIC KEY INTERCEPT
-    if (keycode == _MAGIC) {
-        // record->tap.count > 0 means QMK resolved this as a tap, not a hold.
-        if (record->tap.count > 0) {
-            if (record->event.pressed) {
-                switch (last_keycode) {
-                    case KC_T: // t* → the·
-                        SEND_STRING("hk ");
-                        break;
-                    case KC_W: // w* → which·
-                        SEND_STRING("hich ");
-                        break;
-                    case KC_C: // c* → ctrl
-                        SEND_STRING("t");
-                        break;
-                    case KC_S: // s* → should·
-                        SEND_STRING("hould ");
-                        break;
-                    case KC_G: // g* → git·
-                        SEND_STRING("it ");
-                        break;
-                    case KC_Q: // q* → quand·
-                        SEND_STRING("uajd ");
-                        break;
-                    case KC_Y: // y* → analy
-                        SEND_STRING("\bajaly");
-                        break;
-                    default:
-                    // tap_code(_1DK);
-                    break;
-                }
-            }
-            last_keycode = KC_NO;
-            // Return false on BOTH press and release to completely block the magic key from reaching the OS
-            return false;
-        }
-        // If tap.count == 0, it is a hold. Return true so QMK handles the RALT modifier normally.
-        return true;
-    }
+    // // MAGIC KEY INTERCEPT
+    // if (keycode == _MAGIC) {
+    //     // record->tap.count > 0 means QMK resolved this as a tap, not a hold.
+    //     if (record->tap.count > 0) {
+    //         if (record->event.pressed) {
+    //             switch (last_keycode) {
+    //                 case KC_T: // t* → the·
+    //                     SEND_STRING("hk ");
+    //                     break;
+    //                 case KC_W: // w* → which·
+    //                     SEND_STRING("hich ");
+    //                     break;
+    //                 case KC_C: // c* → ctrl
+    //                     SEND_STRING("t");
+    //                     break;
+    //                 case KC_S: // s* → should·
+    //                     SEND_STRING("hould ");
+    //                     break;
+    //                 case KC_G: // g* → git·
+    //                     SEND_STRING("it ");
+    //                     break;
+    //                 case KC_Q: // q* → quand·
+    //                     SEND_STRING("uajd ");
+    //                     break;
+    //                 case KC_Y: // y* → analy
+    //                     SEND_STRING("\bajaly");
+    //                     break;
+    //                 default:
+    //                 // tap_code(_1DK);
+    //                 break;
+    //             }
+    //         }
+    //         last_keycode = KC_NO;
+    //         // Return false on BOTH press and release to completely block the magic key from reaching the OS
+    //         return false;
+    //     }
+    //     // If tap.count == 0, it is a hold. Return true so QMK handles the RALT modifier normally.
+    //     return true;
+    // }
 
-    // MAGIC KEY TRACKING: Extract base keycode to track previous tap
-    if (record->event.pressed) {
-        uint16_t base_keycode = keycode;
+    // // MAGIC KEY TRACKING: Extract base keycode to track previous tap
+    // if (record->event.pressed) {
+    //     uint16_t base_keycode = keycode;
 
-        // Strip out Layer-Tap and Mod-Tap modifiers to find the actual alpha pressed
-        if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-            (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-            base_keycode = keycode & 0xFF;
-        }
+    //     // Strip out Layer-Tap and Mod-Tap modifiers to find the actual alpha pressed
+    //     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+    //         (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+    //         base_keycode = keycode & 0xFF;
+    //     }
 
-        // Only track standard alphas A-Z
-        if (base_keycode >= KC_A && base_keycode <= KC_Z) {
-            last_keycode = base_keycode;
-        }
-        // Reset tracking on space/backspace/enter to prevent unintended cross-word combos
-        else { //if (base_keycode == KC_SPACE || base_keycode == KC_BSPC || base_keycode == KC_ENT) {
-            last_keycode = KC_NO;
-        }
-    }
+    //     // Only track standard alphas A-Z
+    //     if (base_keycode >= KC_A && base_keycode <= KC_Z) {
+    //         last_keycode = base_keycode;
+    //     }
+    //     // Reset tracking on space/backspace/enter to prevent unintended cross-word combos
+    //     else { //if (base_keycode == KC_SPACE || base_keycode == KC_BSPC || base_keycode == KC_ENT) {
+    //         last_keycode = KC_NO;
+    //     }
+    // }
 
     return true;
 }
