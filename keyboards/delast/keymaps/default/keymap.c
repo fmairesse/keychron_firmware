@@ -47,8 +47,6 @@ enum layers {
 // Shortcuts
 #define _ZOIN   LCTL(KC_MINUS)
 #define _ZOOUT  LCTL(KC_EQUAL)
-#define _WBAK   LCTL_T(KC_WBAK)
-#define _WFWD   LSFT_T(KC_WFWD)
 //#endregion Aliases
 
 //#region Tap Dance
@@ -133,8 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // nav layer triggered by left pinky
     [_NAV] = LAYOUT(
         _______,   XXXXXXX,   XXXXXXX,   _ZOIN,     _ZOOUT,    XXXXXXX,   XXXXXXX,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
-        _______,   XXXXXXX,   KC_LALT,   _WBAK,     _WFWD,     XXXXXXX,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
-        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        _______,   XXXXXXX,   KC_LALT,   KC_LCTL,   KC_LSFT,   XXXXXXX,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_WBAK,   KC_WFWD,   XXXXXXX,   XXXXXXX,
         _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
     ),
 
