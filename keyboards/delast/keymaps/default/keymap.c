@@ -39,7 +39,7 @@ enum layers {
 #define _RSFT   RSFT_T(KC_SLASH)
 
 // Thumbs
-#define _TLEFT1 LCTL_T(KC_DEL)
+#define _TLEFT1 LCTL_T(KC_BSPC)
 #define _TLEFT2 LT(_NAV,KC_SPC)
 #define _TRGHT2 LT(_NUM_LEFT,KC_SPC)
 #define _TRGHT1 RALT_T(_1DK)
