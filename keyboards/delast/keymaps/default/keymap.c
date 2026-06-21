@@ -40,7 +40,7 @@ enum layers {
 
 // Thumbs
 #define _TLEFT1 LCTL_T(KC_DEL)
-#define _TLEFT2 LT(_NUM_RIGHT,KC_SPC)
+#define _TLEFT2 LT(_NAV,KC_SPC)
 #define _TRGHT2 LT(_NUM_LEFT,KC_SPC)
 #define _TRGHT1 RALT_T(_1DK)
 
