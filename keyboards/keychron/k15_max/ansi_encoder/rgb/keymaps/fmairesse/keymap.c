@@ -28,7 +28,7 @@ enum layers {
 // Thumbs
 #define _T1LEFT LALT_T(KC_BSPC)
 #define _T2LEFT LCTL_T(KC_SPC)
-#define _T3LEFT LT(WIN_FN, KC_BSPC)
+#define _T3LEFT MO(WIN_FN)
 #define _T2RGHT RALT_T(KC_SPC)
 #define _T1RGHT RALT_T(KC_DEL)
 
@@ -40,7 +40,7 @@ enum layers {
 // #endregion
 
 //#region Combos
-const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_ESC, _T2RGHT, COMBO_END};
+const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_CAPS, _T2RGHT, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
 
     [WIN_BASE] = LAYOUT_ansi_90(
-        KC_MUTE,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
-        MC_1,     KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGDN,
+        KC_MUTE,  KC_CAPS,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
+        MC_1,     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGDN,
         MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
-        MC_3,     KC_CAPS,  _A,       _S,       _D,       _F,       KC_G,     KC_H,     _J,       _K,       _L,       _SCLN,    KC_QUOT,            KC_ENT,             KC_END,
+        MC_3,     KC_ESC,   _A,       _S,       _D,       _F,       KC_G,     KC_H,     _J,       _K,       _L,       _SCLN,    KC_QUOT,            KC_ENT,             KC_END,
         MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
         MC_5,     KC_LCTL,  KC_LWIN,            _T1LEFT,  _T2LEFT,  _T3LEFT,                      _T2RGHT,            _T1RGHT,  KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
