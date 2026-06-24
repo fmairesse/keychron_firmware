@@ -155,3 +155,17 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case _S:
+        case _D:
+        case _F:
+        case _J:
+        case _K:
+        case _L:
+            return TAPPING_TERM + 30;
+        default:
+            return TAPPING_TERM;
+    }
+}
