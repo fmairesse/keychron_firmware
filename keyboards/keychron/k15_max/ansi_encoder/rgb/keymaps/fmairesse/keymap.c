@@ -8,6 +8,7 @@ enum layers {
     WIN_BASE,
     WIN_FN,
     _NAV,
+    _NUM
 };
 //#endregion Layers
 
@@ -30,7 +31,7 @@ enum layers {
 #define _T2LEFT LCTL_T(KC_SPC)
 #define _T3LEFT MO(WIN_FN)
 #define _T2RGHT RALT_T(KC_SPC)
-#define _T1RGHT RALT_T(KC_DEL)
+#define _T1RGHT LT(_NUM,KC_DEL)
 
 // Shortcuts
 #define _ZOIN   LCTL(KC_EQUAL)
@@ -122,6 +123,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  KC_TAB,   KC_LALT,  _WBAK,    _WFWD,    XXXXXXX,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
         _______,  _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      KC_ENT,             _______,  _______,            _______,  _______,  _______),
+
+    [_NUM] = LAYOUT_ansi_90(
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______, RALT(KC_D),KC_6,     KC_5,     KC_4,    RALT(KC_T),KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_ESC,   _______,  _______,  _______,            _______,
+        _______,  _______, RALT(KC_S),KC_3,     KC_2,     KC_1,    RALT(KC_G),KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
+        _______,  _______,           RALT(KC_Z),KC_9,     KC_8,    KC_7,     RALT(KC_B),XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,            _______,  _______, KC_0,                          KC_ENT,             _______,  _______,            _______,  _______,  _______),
 };
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -130,6 +139,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [WIN_FN]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
     [_NAV]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_NUM]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 };
 
 // clang-format on
@@ -147,6 +157,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case _T1LEFT:
         case _T2LEFT:
+        case _T2RGHT:
         case _T1RGHT:
             // Immediately select the hold action when another key is pressed.
             return true;
