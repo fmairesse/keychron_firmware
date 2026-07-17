@@ -15,33 +15,43 @@ enum layers {
 // #region Key aliases
 
 // Left alphas
-#define _A      LT(_NAV,KC_A)
-#define _S      LALT_T(KC_S)
-#define _D      LCTL_T(KC_D)
-#define _F      LSFT_T(KC_F)
+#define _A       LT(_NAV,KC_A)
+#define _S       LALT_T(KC_S)
+#define _D       LCTL_T(KC_D)
+#define _D🍏     LCMD_T(KC_D)
+#define _F       LSFT_T(KC_F)
 
 // Right alphas
-#define _J      RSFT_T(KC_J)
-#define _K      RCTL_T(KC_K)
-#define _L      LALT_T(KC_L)
-#define _SCLN   LT(_NAV,KC_SCLN)
+#define _J       RSFT_T(KC_J)
+#define _K       RCTL_T(KC_K)
+#define _K🍏     RCMD_T(KC_K)
+#define _L       LALT_T(KC_L)
+#define _SCLN    LT(_NAV,KC_SCLN)
 
 // Thumbs
-#define _T1LEFT LALT_T(KC_BSPC)
-#define _T2LEFT LCTL_T(KC_SPC)
-#define _T3LEFT MO(WIN_FN)
-#define _T2RGHT RALT_T(KC_SPC)
-#define _T1RGHT LT(_NUM,KC_DEL)
+#define _T1LFT   LALT_T(KC_BSPC)
+#define _T2LFT   LCTL_T(KC_SPC)
+#define _T2LFT🍏 LCMD_T(KC_SPC)
+#define _T3LFT   MO(WIN_FN)
+#define _T3LFT🍏 MO(MAC_FN)
+#define _T2RGT   RALT_T(KC_SPC)
+#define _T1RGT   RALT_T(KC_DEL)
 
 // Shortcuts
-#define _ZOIN   LCTL(KC_EQUAL)
-#define _ZOOUT  LCTL(KC_MINUS)
-#define _WBAK   LCTL_T(KC_WBAK)
-#define _WFWD   LSFT_T(KC_WFWD)
+#define _ZOIN    LCTL(KC_EQUAL)
+#define _ZOOUT   LCTL(KC_MINUS)
+#define _WBAK    LCTL_T(KC_WBAK)
+#define _WFWD    LSFT_T(KC_WFWD)
 // #endregion
 
+
+// Macros
+#define _TOMAC   DF(MAC_BASE)
+#define _TOWIN   DF(WIN_BASE)
+
+
 //#region Combos
-const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_CAPS, _T2RGHT, COMBO_END};
+const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_CAPS, _T2RGT,  COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(boot_combo, QK_BOOT),
@@ -85,18 +95,18 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_90(
-        KC_MUTE,  KC_ESC,   KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY, KC_MNXT,   KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_INS,             KC_DEL,
-        MC_1,     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,      KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
-        MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,      KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
-        MC_3,     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,      KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
+        KC_MUTE,  KC_CAPS,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,   KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
+        MC_1,     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,      KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGDN,
+        MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,      KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
+        MC_3,     KC_ESC,   _A,       _S,       _D🍏,     _F,       KC_G,     KC_H,     _J,       _K🍏,    _L,       _SCLN,     KC_QUOT,            KC_ENT,             KC_END,
         MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
-        MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,   MO(MAC_FN),                   KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
+        MC_5,     KC_LCTL,  KC_LWIN,            _T1LFT,   _T2LFT🍏, _T3LFT🍏,                     _T2RGT,             _T1RGT,   KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_ansi_90(
-        RGB_TOG,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,            _______,
-        _______,  _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            KC_END,
+        RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY, KC_MNXT,   KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
+        _TOMAC,   _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _TOWIN,   RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______,  RGB_RMOD, KC_PSCR,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            KC_END,
         _______,  _______,            _______,  _______,  _______,  _______,  BAT_LVL,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
 
@@ -106,12 +116,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
         MC_3,     KC_ESC,   _A,       _S,       _D,       _F,       KC_G,     KC_H,     _J,       _K,       _L,       _SCLN,    KC_QUOT,            KC_ENT,             KC_END,
         MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
-        MC_5,     KC_LCTL,  KC_LWIN,            _T1LEFT,  _T2LEFT,  _T3LEFT,                      _T2RGHT,            _T1RGHT,  KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
+        MC_5,     KC_LCTL,  KC_LWIN,            _T1LFT,   _T2LFT,   _T3LFT,                       _T2RGT,             _T1RGT,   KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [WIN_FN] = LAYOUT_ansi_90(
         RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
-        _______,  _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            KC_PGUP,
-        _______,  RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _TOMAC,   _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            KC_PGUP,
+        _TOWIN,   RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  _______,  RGB_RMOD, KC_PSCR,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
         _______,  _______,            _______,  _______,  _______,  _______,  BAT_LVL,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
@@ -155,10 +165,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case _T1LEFT:
-        case _T2LEFT:
-        case _T2RGHT:
-        case _T1RGHT:
+        case _T1LFT:
+        case _T2LFT:
+        case _T2RGT:
+        case _T1RGT:
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
