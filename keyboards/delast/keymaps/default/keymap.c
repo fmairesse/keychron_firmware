@@ -39,10 +39,10 @@ enum layers {
 #define _RSFT   RSFT_T(KC_SLASH)
 
 // Thumbs
-#define _TLEFT1 LCTL_T(KC_BSPC)
-#define _TLEFT2 LT(_NAV,KC_SPC)
-#define _TRGHT2 LT(_NUM_LEFT,KC_SPC)
-#define _TRGHT1 RALT_T(KC_DEL)
+#define _T1LFT  LCTL_T(KC_BSPC)
+#define _T2LFT  LT(_NAV,KC_SPC)
+#define _T2RGT  LT(_NUM_LEFT,KC_SPC)
+#define _T1RGT  RALT_T(KC_DEL)
 
 // Shortcuts
 #define _ZOIN   LCTL(KC_EQUAL)
@@ -59,7 +59,7 @@ tap_dance_action_t tap_dance_actions[] = {
 //#endregion Tap Dance
 
 //#region Combos
-const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _TRGHT2, COMBO_END};
+const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _T2RGT, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {_LSFT, KC_Z, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {_BSPC, KC_P, COMBO_END};
 const uint16_t PROGMEM numpad_on_combo[] = {KC_O, KC_P, _BSPC, COMBO_END};
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      _BSPC,
         _TAB,      _A,        _S,        _D,        _F,        KC_G,      KC_H,      _J,        _K,        _L,        _SCLN,     KC_ENT,
         _LSFT,     KC_Z,      KC_X,      KC_C,      _V,        KC_B,      KC_N,      KC_M,      _COMM,     KC_DOT,    KC_UP,     _RSFT,
-        KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _TLEFT1,   _TLEFT2,   _TRGHT2,   _TRGHT1,   XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
+        KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _T1LFT,    _T2LFT,    _T2RGT,    _T1RGT,    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
 
     // nav layer triggered by left pinky
@@ -173,10 +173,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
  */
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case _TLEFT1:
-    case _TLEFT2:
-    case _TRGHT1:
-    case _TRGHT2:
+    case _T1LFT:
+    case _T2LFT:
+    case _T1RGT:
+    case _T2RGT:
         return true;
     default:
         return false;
