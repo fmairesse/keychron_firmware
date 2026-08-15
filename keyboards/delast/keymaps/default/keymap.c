@@ -144,9 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NUM_LEFT] = LAYOUT(
-        _______,   RALT(KC_D),KC_6,      KC_5,      KC_4,      RALT(KC_T),RALT(KC_Y),RALT(KC_U),RALT(KC_I),RALT(KC_O),RALT(KC_P),_______,
+        _______,   RALT(KC_D),KC_9,      KC_8,      KC_7,      RALT(KC_T),RALT(KC_Y),RALT(KC_U),RALT(KC_I),RALT(KC_O),RALT(KC_P),_______,
         _______,   RALT(KC_S),KC_3,      KC_2,      KC_1,      RALT(KC_G),RALT(KC_H),RALT(KC_J),RALT(KC_K),RALT(KC_L),XXXXXXX,   _______,
-        _______,   RALT(KC_Z),KC_9,      KC_8,      KC_7,      RALT(KC_B),RALT(KC_N),RALT(KC_M),_______,   _______,   _______,   _______,
+        _______,   RALT(KC_Z),KC_6,      KC_5,      KC_4,      RALT(KC_B),RALT(KC_N),RALT(KC_M),_______,   _______,   _______,   _______,
         _______,   _______,   _______,   XXXXXXX,   KC_0,      _______,   _______,   _______,   XXXXXXX,   _______,   _______,   _______
     ),
 
