@@ -3,10 +3,12 @@
 //#region Layers
 enum layers {
     _BASE,
+    _MAC,
     _NAV,
     _NUM_RIGHT,
     _NUM_LEFT,
-    _FKEYS
+    _FKEYS,
+    _BASE_LAYER_SWITCH
 };
 //#endregion Layers
 
@@ -24,12 +26,14 @@ enum layers {
 #define _A       LT(_NAV,KC_A)
 #define _S       LALT_T(KC_S)
 #define _D       LCTL_T(KC_D)
+#define _D🍏     LCMD_T(KC_D)
 #define _F       LSFT_T(KC_F)
 #define _V       KC_V
 
 // Right alphas
 #define _J       RSFT_T(KC_J)
 #define _K       RCTL_T(KC_K)
+#define _K🍏     RCMD_T(KC_K)
 #define _L       LALT_T(KC_L)
 #define _SCLN    LT(_NUM_LEFT,KC_SEMICOLON)
 #define _COMM    KC_COMM
@@ -40,6 +44,7 @@ enum layers {
 
 // Thumbs
 #define _T1LFT   LCTL_T(KC_BSPC)
+#define _T1LFT🍏 LCMD_T(KC_SPC)
 #define _T2LFT   LT(_NAV,KC_SPC)
 #define _T2RGT   LT(_NUM_LEFT,KC_SPC)
 #define _T1RGT   RALT_T(KC_DEL)
@@ -47,6 +52,10 @@ enum layers {
 // Shortcuts
 #define _ZOIN    LCTL(KC_EQUAL)
 #define _ZOOUT   LCTL(KC_MINUS)
+
+//Base layer switch
+#define _TOMAC   DF(_MAC)
+#define _TOWIN   DF(_BASE)
 //#endregion Aliases
 
 //#region Tap Dance
@@ -59,19 +68,42 @@ tap_dance_action_t tap_dance_actions[] = {
 //#endregion Tap Dance
 
 //#region Combos
+enum combo_events {
+    _BOOT_COMBO,
+    _CAPS_COMBO,
+    _DEL_COMBO,
+    _NUMPAD_ON_COMBO,
+    _NUMPAD_OFF_COMBO,
+    _BASE_LAYER_COMBO,
+};
+
 const uint16_t PROGMEM boot_combo[] = {KC_LCTL, _ESC, _T2RGT, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {_LSFT, KC_Z, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {_BSPC, KC_P, COMBO_END};
 const uint16_t PROGMEM numpad_on_combo[] = {KC_O, KC_P, _BSPC, COMBO_END};
 const uint16_t PROGMEM numpad_off_combo[] = {KC_7, KC_8, COMBO_END};
+const uint16_t PROGMEM base_layer_combo[] = {KC_LEFT, KC_RIGHT, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(boot_combo, QK_BOOT),
-    COMBO(caps_combo, KC_CAPS),
-    COMBO(del_combo, KC_DEL),
-    COMBO(numpad_on_combo, _TNPAD),
-    COMBO(numpad_off_combo, _TNPAD),
+    [_BOOT_COMBO]       = COMBO(boot_combo, QK_BOOT),
+    [_CAPS_COMBO]       = COMBO(caps_combo, KC_CAPS),
+    [_DEL_COMBO]        = COMBO(del_combo, KC_DEL),
+    [_NUMPAD_ON_COMBO]  = COMBO(numpad_on_combo, _TNPAD),
+    [_NUMPAD_OFF_COMBO] = COMBO(numpad_off_combo, _TNPAD),
+    [_BASE_LAYER_COMBO] = COMBO_ACTION(base_layer_combo),
 };
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+        case _BASE_LAYER_COMBO:
+            if (pressed) {
+                layer_on(_BASE_LAYER_SWITCH);
+            } else {
+                layer_off(_BASE_LAYER_SWITCH);
+            }
+            break;
+    }
+}
+
 //#endregion Combos
 
 //#region Key Overrides
@@ -128,6 +160,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _T1LFT,    _T2LFT,    _T2RGT,    _T1RGT,    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
 
+    [_MAC] = LAYOUT(
+        _ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      _BSPC,
+        _TAB,      _A,        _S,        _D🍏,      _F,        KC_G,      KC_H,      _J,        _K🍏,      _L,        _SCLN,     KC_ENT,
+        _LSFT,     KC_Z,      KC_X,      KC_C,      _V,        KC_B,      KC_N,      KC_M,      _COMM,     KC_DOT,    KC_UP,     _RSFT,
+        KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _T1LFT🍏,  _T2LFT,    _T2RGT,    _T1RGT,    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
+    ),
+
     // nav layer triggered by left pinky
     [_NAV] = LAYOUT(
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
@@ -155,16 +194,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   XXXXXXX,   KC_PSCR,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   XXXXXXX,
         _______,   _______,   _______,   KC_MPLY,   _______,   _______,   _______,   _______,   XXXXXXX,   KC_HOME,   KC_PGDN,   KC_END
+    ),
+
+    [_BASE_LAYER_SWITCH] = LAYOUT(
+        XXXXXXX,   XXXXXXX,   _TOWIN,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _TOMAC,    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
     )
 };
 
 // Configuration for rotary turns per layer
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE]              = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_MAC]               = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_NAV]               = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUM_RIGHT]         = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUM_LEFT]          = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_FKEYS]             = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
+    [_BASE_LAYER_SWITCH] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
 };
 
 /**
