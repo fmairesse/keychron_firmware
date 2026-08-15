@@ -215,12 +215,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 uint16_t last_keycode = KC_NO;
 
 // Custom behavior and Quick software reset handler
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (keycode == QK_BOOT && record->event.pressed) {
-        reset_keyboard();
-        return true;
-    }
-
+// bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     // // MAGIC KEY INTERCEPT
     // if (keycode == _MAGIC) {
     //     // record->tap.count > 0 means QMK resolved this as a tap, not a hold.
@@ -281,5 +276,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     //     }
     // }
 
-    return true;
-}
+//     return true;
+// }
