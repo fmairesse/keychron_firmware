@@ -11,42 +11,42 @@ enum layers {
 //#endregion Layers
 
 //#region Aliases
-#define _TNPAD  TG(_NUM_RIGHT)
-#define _1DK    KC_LEFT_BRACKET
+#define _TNPAD   TG(_NUM_RIGHT)
+#define _1DK     KC_LEFT_BRACKET
 // #define _MAGIC  _RSFT
 
 // Left pinkies
-#define _ESC    LT(_FKEYS,KC_ESC)
-#define _TAB    KC_TAB
-#define _LSFT   LSFT_T(KC_NONUS_BACKSLASH)
+#define _ESC     LT(_FKEYS,KC_ESC)
+#define _TAB     KC_TAB
+#define _LSFT    LSFT_T(KC_NONUS_BACKSLASH)
 
 // Left alphas
-#define _A      LT(_NAV,KC_A)
-#define _S      LALT_T(KC_S)
-#define _D      LCTL_T(KC_D)
-#define _F      LSFT_T(KC_F)
-#define _V      KC_V
+#define _A       LT(_NAV,KC_A)
+#define _S       LALT_T(KC_S)
+#define _D       LCTL_T(KC_D)
+#define _F       LSFT_T(KC_F)
+#define _V       KC_V
 
 // Right alphas
-#define _J      RSFT_T(KC_J)
-#define _K      RCTL_T(KC_K)
-#define _L      LALT_T(KC_L)
-#define _SCLN   LT(_NUM_LEFT,KC_SEMICOLON)
-#define _COMM   KC_COMM
+#define _J       RSFT_T(KC_J)
+#define _K       RCTL_T(KC_K)
+#define _L       LALT_T(KC_L)
+#define _SCLN    LT(_NUM_LEFT,KC_SEMICOLON)
+#define _COMM    KC_COMM
 
 // Right pinkies
-#define _BSPC   LT(_FKEYS,KC_BSPC)
-#define _RSFT   RSFT_T(KC_SLASH)
+#define _BSPC    LT(_FKEYS,KC_BSPC)
+#define _RSFT    RSFT_T(KC_SLASH)
 
 // Thumbs
-#define _T1LFT  LCTL_T(KC_BSPC)
-#define _T2LFT  LT(_NAV,KC_SPC)
-#define _T2RGT  LT(_NUM_LEFT,KC_SPC)
-#define _T1RGT  RALT_T(KC_DEL)
+#define _T1LFT   LCTL_T(KC_BSPC)
+#define _T2LFT   LT(_NAV,KC_SPC)
+#define _T2RGT   LT(_NUM_LEFT,KC_SPC)
+#define _T1RGT   RALT_T(KC_DEL)
 
 // Shortcuts
-#define _ZOIN   LCTL(KC_EQUAL)
-#define _ZOOUT  LCTL(KC_MINUS)
+#define _ZOIN    LCTL(KC_EQUAL)
+#define _ZOOUT   LCTL(KC_MINUS)
 //#endregion Aliases
 
 //#region Tap Dance
@@ -160,11 +160,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Configuration for rotary turns per layer
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_BASE]      = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_NAV]       = { ENCODER_CCW_CW(KC_NO, KC_NO) },
-    [_NUM_RIGHT] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
-    [_NUM_LEFT]  = { ENCODER_CCW_CW(KC_NO, KC_NO) },
-    [_FKEYS]     = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) }
+    [_BASE]              = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NAV]               = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_NUM_RIGHT]         = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_NUM_LEFT]          = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_FKEYS]             = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
 };
 
 /**
