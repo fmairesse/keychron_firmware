@@ -5,6 +5,7 @@ enum layers {
     _BASE,
     _MAC,
     _NAV,
+    _NAV🍏,
     _NUM_RIGHT,
     _NUM_LEFT,
     _FKEYS,
@@ -24,6 +25,7 @@ enum layers {
 
 // Left alphas
 #define _A       LT(_NAV,KC_A)
+#define _A🍏      LT(_NAV🍏,KC_A)
 #define _S       LALT_T(KC_S)
 #define _D       LCTL_T(KC_D)
 #define _D🍏     LCMD_T(KC_D)
@@ -51,7 +53,11 @@ enum layers {
 
 // Shortcuts
 #define _ZOIN    LCTL(KC_EQUAL)
+#define _ZOIN🍏  LCMD(KC_EQUAL)
 #define _ZOOUT   LCTL(KC_MINUS)
+#define _ZOOUT🍏 LCMD(KC_MINUS)
+#define _BACK🍏  LCMD(KC_LBRC)
+#define _FWD🍏   LCMD(KC_RBRC)
 
 //Base layer switch
 #define _TOMAC   DF(_MAC)
@@ -162,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MAC] = LAYOUT(
         _ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      _BSPC,
-        _TAB,      _A,        _S,        _D🍏,      _F,        KC_G,      KC_H,      _J,        _K🍏,      _L,        _SCLN,     KC_ENT,
+        _TAB,      _A🍏,      _S,        _D🍏,      _F,        KC_G,      KC_H,      _J,        _K🍏,      _L,        _SCLN,     KC_ENT,
         _LSFT,     KC_Z,      KC_X,      KC_C,      _V,        KC_B,      KC_N,      KC_M,      _COMM,     KC_DOT,    KC_UP,     _RSFT,
         KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _T1LFT🍏,  _T2LFT,    _T2RGT,    _T1RGT,    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
@@ -172,6 +178,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
         _______,   XXXXXXX,   KC_LALT,   KC_LCTL,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _ZOOUT,    _ZOIN,     KC_WBAK,   KC_WFWD,   XXXXXXX,   XXXXXXX,
+        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
+    ),
+
+    // nav layer triggered by left pinky
+    [_NAV🍏] = LAYOUT(
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
+        _______,   XXXXXXX,   KC_LALT,   KC_LCMD,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _ZOOUT🍏,  _ZOIN🍏,   _BACK🍏,   _FWD🍏,    XXXXXXX,   XXXXXXX,
         _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
     ),
 
@@ -209,6 +223,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE]              = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_MAC]               = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_NAV]               = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_NAV🍏]              = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUM_RIGHT]         = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_NUM_LEFT]          = { ENCODER_CCW_CW(KC_NO, KC_NO) },
     [_FKEYS]             = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
