@@ -131,10 +131,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT_ansi_90(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  _______,  KC_ESC,   XXXXXXX,  _ZOOUT,   _ZOIN,    XXXXXXX,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_ESC,   _______,  _______,  _______,            _______,
-        _______,  _______,  KC_TAB,   KC_LALT,  _WBAK,    _WFWD,    XXXXXXX,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
-        _______,  _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _WBAK,    _WFWD,    _ZOOUT,   _ZOIN,    _______,  _______,  _______,
-        _______,  _______,  _______,            _______,  _______,  _______,                      KC_ENT,             _______,  _______,            _______,  _______,  _______),
+        _______,  _______,  KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_ESC,   _______,  _______,  _______,            _______,
+        _______,  _______,  KC_TAB,   KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
+        _______,  _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _ZOOUT,   _ZOIN,    _WBAK,    _WFWD,    _______,  _______,  _______,
+        _______,  _______,  _______,            _______,  _______,  _______,                      KC_ENT,             KC_BSPC,  _______,            _______,  _______,  _______),
 
     [_NUM] = LAYOUT_ansi_90(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
