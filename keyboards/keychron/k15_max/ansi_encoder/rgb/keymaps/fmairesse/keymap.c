@@ -40,9 +40,9 @@ enum layers {
 // Shortcuts
 #define _ZOIN    LCTL(KC_EQUAL)
 #define _ZOOUT   LCTL(KC_MINUS)
-#define _WBAK    LCTL_T(KC_WBAK)
-#define _WFWD    LSFT_T(KC_WFWD)
-#define _LSCR    LCTL(LGUI(KC_Q)) // Lock screen
+#define _BAK     LCTL_T(KC_WBAK)
+#define _FWD     LSFT_T(KC_WFWD)
+#define _LSCR🍏   LCTL(LGUI(KC_Q)) // Lock screen
 
 // Base layers switchers
 #define _TOMAC   DF(MAC_BASE)
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY, KC_MNXT,   KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
         _TOMAC,   _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _TOWIN,   RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  _______,  RGB_RMOD, KC_PSCR,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _LSCR,    _______,  _______,            _______,            KC_END,
+        _______,  _______,  RGB_RMOD, KC_PSCR,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _LSCR🍏,   _______,  _______,            _______,            KC_END,
         _______,  _______,            _______,  _______,  _______,  _______,  BAT_LVL,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
 
