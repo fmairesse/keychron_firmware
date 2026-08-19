@@ -45,7 +45,7 @@ enum layers {
 // Thumbs
 #define _T1LFT   LCTL_T(KC_BSPC)
 #define _T1LFT🍏 LCMD_T(KC_SPC)
-#define _T2LFT   LT(_NAV,KC_SPC)
+#define _T2LFT   LT(_NUM_RIGHT,KC_SPC)
 #define _T2RGT   LT(_NUM_LEFT,KC_SPC)
 #define _T1RGT   RALT_T(KC_DEL)
 
