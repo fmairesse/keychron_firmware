@@ -185,7 +185,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case _T1LFT:
         case _T2LFT:
-        case _T2RGT:
         case _T1RGT:
             // Immediately select the hold action when another key is pressed.
             return true;
