@@ -95,6 +95,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _BACK🍏  LCMD(KC_LBRC)
 #define _FWD🍏   LCMD(KC_RBRC)
 #define _MCTL🍏  TD(_TD_MCTL) // Mission control
+#define _LSCR🍏  LCTL(LGUI(KC_Q)) // Lock screen
 
 //Base layer switch
 #define _TOMAC   DF(_MAC)
@@ -233,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FKEYS] = LAYOUT(
         KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
-        _______,   XXXXXXX,   KC_PSCR,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        _______,   XXXXXXX,   KC_PSCR,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _LSCR🍏,   XXXXXXX,   XXXXXXX,
         _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   XXXXXXX,
         _______,   _______,   _______,   KC_MPLY,   _______,   _______,   _______,   _______,   XXXXXXX,   KC_HOME,   KC_PGDN,   KC_END
     ),
