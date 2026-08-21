@@ -13,6 +13,15 @@ enum layers {
 };
 //#endregion Layers
 
+//#region Tap Dance
+enum {
+    _TD_MCTL,
+};
+tap_dance_action_t tap_dance_actions[] = {
+    [_TD_MCTL] = ACTION_TAP_DANCE_DOUBLE(LCMD_T(KC_MCTL), LCTL(KC_DOWN))
+};
+//#endregion Tap Dance
+
 //#region Aliases
 #define _TNPAD   TG(_NUM_RIGHT)
 #define _1DK     KC_LEFT_BRACKET
@@ -58,20 +67,12 @@ enum layers {
 #define _ZOOUT🍏 LCMD(KC_MINUS)
 #define _BACK🍏  LCMD(KC_LBRC)
 #define _FWD🍏   LCMD(KC_RBRC)
+#define _MCTL🍏  TD(_TD_MCTL) // Mission control
 
 //Base layer switch
 #define _TOMAC   DF(_MAC)
 #define _TOWIN   DF(_BASE)
 //#endregion Aliases
-
-//#region Tap Dance
-enum {
-    TD_CAPSLOCK,
-};
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(_LSFT, KC_CAPS)
-};
-//#endregion Tap Dance
 
 //#region Combos
 enum combo_events {
@@ -170,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      _BSPC,
         _TAB,      _A🍏,      _S,        _D🍏,      _F,        KC_G,      KC_H,      _J,        _K🍏,      _L,        _SCLN,     KC_ENT,
         _LSFT,     KC_Z,      KC_X,      KC_C,      _V,        KC_B,      KC_N,      KC_M,      _COMM,     KC_DOT,    KC_UP,     _RSFT,
-        KC_LCTL,   KC_LGUI,   KC_LALT,   KC_MUTE,   _T1LFT🍏,  _T2LFT,    _T2RGT,    _T1RGT,    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
+        KC_LCTL,   _MCTL🍏,   KC_LALT,   KC_MUTE,   _T1LFT🍏,  _T2LFT,    _T2RGT,    _T1RGT,    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
 
     // nav layer triggered by left pinky
