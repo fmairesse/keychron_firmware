@@ -17,8 +17,35 @@ enum layers {
 enum {
     _TD_MCTL,
 };
+
+static bool mctl_held;
+
+static void mctl_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        if (state->pressed) {
+            mctl_held = true;
+            register_code(KC_LCMD);
+        } else {
+            tap_code(KC_MCTL);
+        }
+    } else if (state->count == 2) {
+        tap_code16(LCTL(KC_DOWN));
+    }
+}
+
+static void mctl_reset(tap_dance_state_t *state, void *user_data) {
+    if (mctl_held) {
+        unregister_code(KC_LCMD);
+        mctl_held = false;
+    }
+}
+
 tap_dance_action_t tap_dance_actions[] = {
-    [_TD_MCTL] = ACTION_TAP_DANCE_DOUBLE(LCMD_T(KC_MCTL), LCTL(KC_DOWN))
+    // _TD_MCTL:
+    // tapped once: send MCTL,
+    // tapped twice: send LCTL+DOWN
+    // held: send LCMD
+    [_TD_MCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mctl_finished, mctl_reset)
 };
 //#endregion Tap Dance
 
