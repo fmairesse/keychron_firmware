@@ -290,6 +290,16 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case _T2RGT:
+            return TAPPING_TERM + 30;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+
 // uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 //     switch (keycode) {
 //         case _LSFT:
