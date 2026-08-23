@@ -243,18 +243,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // nav layer triggered by left pinky
     [_NAV] = LAYOUT(
-        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
-        _______,   XXXXXXX,   KC_LALT,   KC_LCTL,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
-        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _ZOOUT,    _ZOIN,     KC_WBAK,   KC_WFWD,   XXXXXXX,   XXXXXXX,
-        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    _______,
+        _______,   XXXXXXX,   KC_LALT,   KC_LCTL,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _ZOOUT,    _ZOIN,     KC_WBAK,   KC_WFWD,   _______,   _______,
+        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   _______,   _______,   _______
     ),
 
     // nav layer triggered by left pinky
     [_NAV🍏] = LAYOUT(
-        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    XXXXXXX,
-        _______,   XXXXXXX,   KC_LALT,   KC_LCMD,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    XXXXXXX,
-        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _ZOOUT🍏,  _ZOIN🍏,   _BACK🍏,   _FWD🍏,    XXXXXXX,   XXXXXXX,
-        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    _______,
+        _______,   XXXXXXX,   KC_LALT,   KC_LCMD,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,
+        _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   _ZOOUT🍏,  _ZOIN🍏,   _BACK🍏,   _FWD🍏,    _______,   _______,
+        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   KC_ENT,    KC_BSPC,   XXXXXXX,   _______,   _______,   _______
     ),
 
     [_NUM_RIGHT] = LAYOUT(
