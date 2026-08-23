@@ -190,12 +190,38 @@ const key_override_t macos_delete_word_override = {
     .context           = NULL,
     .enabled           = NULL,
 };
+const key_override_t macos_move_word_left_override = {
+    .trigger_mods      = MOD_BIT_LGUI,
+    .layers            = (1UL << _MAC) | (1UL << _NAV🍏),
+    .negative_mod_mask = 0,
+    .suppressed_mods   = MOD_BIT_LGUI,
+    .trigger           = KC_LEFT,
+    .replacement       = LALT(KC_LEFT),
+    .options           = ko_options_default,
+    .custom_action     = NULL,
+    .context           = NULL,
+    .enabled           = NULL,
+};
+const key_override_t macos_move_word_right_override = {
+    .trigger_mods      = MOD_BIT_LGUI,
+    .layers            = (1UL << _MAC) | (1UL << _NAV🍏),
+    .negative_mod_mask = 0,
+    .suppressed_mods   = MOD_BIT_LGUI,
+    .trigger           = KC_RGHT,
+    .replacement       = LALT(KC_RGHT),
+    .options           = ko_options_default,
+    .custom_action     = NULL,
+    .context           = NULL,
+    .enabled           = NULL,
+};
 
 const key_override_t *key_overrides[] = {
     &alt_up_slash_override,
     &w_override,
     &z_override,
     &macos_delete_word_override,
+    &macos_move_word_left_override,
+    &macos_move_word_right_override,
 };
 //#endregion Key Overrides
 
