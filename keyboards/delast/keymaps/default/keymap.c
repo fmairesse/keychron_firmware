@@ -178,11 +178,24 @@ const key_override_t z_override = {
     .context           = NULL,
     .enabled           = NULL,
 };
+const key_override_t macos_delete_word_override = {
+    .trigger_mods      = MOD_BIT_LGUI,
+    .layers            = (1UL << _MAC),
+    .negative_mod_mask = 0,
+    .suppressed_mods   = MOD_BIT_LGUI,
+    .trigger           = _BSPC,
+    .replacement       = LALT(KC_BSPC),
+    .options           = ko_options_default,
+    .custom_action     = NULL,
+    .context           = NULL,
+    .enabled           = NULL,
+};
 
 const key_override_t *key_overrides[] = {
     &alt_up_slash_override,
     &w_override,
     &z_override,
+    &macos_delete_word_override,
 };
 //#endregion Key Overrides
 
