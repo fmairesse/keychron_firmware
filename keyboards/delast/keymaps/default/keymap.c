@@ -276,18 +276,14 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 /**
- * PERMISSIVE HOLD (Anti-jd Logic)
+ * PERMISSIVE HOLD
+ * Chordal Hold already settles same-hand rolls as taps, so home row mods
+ * don't need Permissive Hold disabled; doing so only breaks the
+ * opposite-hand nested-tap case Permissive Hold is meant to catch.
  */
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case _S:
-        case _D:
-        case _F:
-        case _J:
-        case _K:
-        case _L:
-        case _SCLN:
-        case _BSPC:
+        case _T2RGT:
             return false;
         default:
             return true;
