@@ -16,9 +16,13 @@ enum layers {
 //#region Tap Dance
 enum {
     _TD_MCTL,
+    _TD_T1LFT,
+    _TD_T1LFT_MAC,
 };
 
 static bool mctl_held;
+static bool t1lft_held;
+static bool t1lft_mac_held;
 
 static void mctl_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
@@ -40,12 +44,39 @@ static void mctl_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+static void t1lft_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->pressed) {
+        if (state->index == _TD_T1LFT_MAC) {
+            t1lft_mac_held = true;
+            register_code(KC_LCMD);
+        } else {
+            t1lft_held = true;
+            register_code(KC_LCTL);
+        }
+    } else {
+        set_oneshot_mods(MOD_BIT(KC_LSFT));
+    }
+}
+
+static void t1lft_reset(tap_dance_state_t *state, void *user_data) {
+    if (t1lft_held) {
+        unregister_code(KC_LCTL);
+        t1lft_held = false;
+    }
+    if (t1lft_mac_held) {
+        unregister_code(KC_LCMD);
+        t1lft_mac_held = false;
+    }
+}
+
 tap_dance_action_t tap_dance_actions[] = {
     // _TD_MCTL:
     // tapped once: send MCTL,
     // tapped twice: send LCTL+DOWN
     // held: send LCMD
-    [_TD_MCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mctl_finished, mctl_reset)
+    [_TD_MCTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mctl_finished, mctl_reset),
+    [_TD_T1LFT]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, t1lft_finished, t1lft_reset),
+    [_TD_T1LFT_MAC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, t1lft_finished, t1lft_reset),
 };
 //#endregion Tap Dance
 
@@ -81,8 +112,8 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _RSFT    RSFT_T(KC_SLASH)
 
 // Thumbs
-#define _T1LFT   LCTL_T(KC_BSPC)
-#define _T1LFT🍏 LCMD_T(KC_SPC)
+#define _T1LFT   TD(_TD_T1LFT)
+#define _T1LFT🍏 TD(_TD_T1LFT_MAC)
 #define _T2LFT   LT(_NUM_RIGHT,KC_SPC)
 #define _T2RGT   LT(_NUM_LEFT,KC_SPC)
 #define _T1RGT   RALT_T(KC_DEL)
