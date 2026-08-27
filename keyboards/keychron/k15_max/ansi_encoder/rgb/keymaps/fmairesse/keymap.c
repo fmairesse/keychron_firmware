@@ -49,7 +49,7 @@ enum layers {
 #define _BAK🍏   LCMD(KC_LBRC)
 #define _FWD     LSFT_T(KC_WFWD)
 #define _FWD🍏   LCMD(KC_RBRC)
-#define _LSCR🍏   LCTL(LGUI(KC_Q)) // Lock screen
+#define _LSCR🍏  LCTL(LGUI(KC_Q)) // Lock screen
 
 // Base layers switchers
 #define _TOMAC   DF(MAC_BASE)
