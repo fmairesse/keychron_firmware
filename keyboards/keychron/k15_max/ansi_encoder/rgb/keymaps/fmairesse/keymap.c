@@ -13,6 +13,42 @@ enum layers {
 };
 //#endregion Layers
 
+//#region Tap Dance
+enum {
+    _TD_MCTL,
+};
+
+static bool mctl_held;
+
+static void mctl_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        if (state->pressed) {
+            mctl_held = true;
+            register_code(KC_LCMD);
+        } else {
+            tap_code(KC_MCTL);
+        }
+    } else if (state->count == 2) {
+        tap_code16(LCTL(KC_DOWN));
+    }
+}
+
+static void mctl_reset(tap_dance_state_t *state, void *user_data) {
+    if (mctl_held) {
+        unregister_code(KC_LCMD);
+        mctl_held = false;
+    }
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    // _TD_MCTL:
+    // tapped once: send MCTL,
+    // tapped twice: send LCTL+DOWN
+    // held: send LCMD
+    [_TD_MCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mctl_finished, mctl_reset)
+};
+//#endregion Tap Dance
+
 // #region Key aliases
 
 // Left alphas
@@ -50,14 +86,13 @@ enum layers {
 #define _FWD     LSFT_T(KC_WFWD)
 #define _FWD🍏   LCMD(KC_RBRC)
 #define _LSCR🍏  LCTL(LGUI(KC_Q)) // Lock screen
+#define _MCTL🍏  TD(_TD_MCTL) // Mission control
 
 // Base layers switchers
 #define _TOMAC   DF(MAC_BASE)
 #define _TOWIN   DF(WIN_BASE)
 
 // #endregion Key aliases
-
-
 
 //#region Combos
 const uint16_t PROGMEM boot_combo[] = {KC_LCTL, KC_ESC, _T2RGT,  COMBO_END};
@@ -109,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,      KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_HOME,
         KC_CAPS,  KC_ESC,   _A🍏,      _S,       _D🍏,     _F,       KC_G,     KC_H,     _J,       _K🍏,    _L,       _SCLN🍏,  KC_QUOT,            KC_ENT,             KC_END,
         KC_LNPAD, KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
-        KC_MCTRL, KC_LCTL,  KC_LWIN,            _T1LFT,   _T2LFT🍏, _T3LFT🍏,                     _T2RGT,             _T1RGT,   KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_MCTRL, KC_LCTL,  _MCTL🍏,            _T1LFT,   _T2LFT🍏, _T3LFT🍏,                     _T2RGT,             _T1RGT,   KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_ansi_90(
         RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY, KC_MNXT,   KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
