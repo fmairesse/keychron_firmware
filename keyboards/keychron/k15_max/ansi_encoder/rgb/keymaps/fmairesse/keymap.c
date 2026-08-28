@@ -11,6 +11,8 @@ enum layers {
     _NAV🍏,
     _NUM
 };
+
+#define _DEFAULT_LAYER MAC_BASE
 //#endregion Layers
 
 //#region Tap Dance
@@ -206,7 +208,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_NUM]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 };
 
-// clang-format on
+// Set the default layer after keyboard initialization
+void keyboard_post_init_user(void) {
+    default_layer_set(1UL << _DEFAULT_LAYER);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Quick software reset handler
     if (keycode == QK_BOOT && record->event.pressed) {
