@@ -90,6 +90,8 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _LSCR🍏  LCTL(LGUI(KC_Q)) // Lock screen
 #define _MCTL🍏  TD(_TD_MCTL) // Mission control
 #define _SPTL🍏  LCTL(LGUI(LALT(KC_SPC))) // Spotlight
+#define _HOME🍏  LCMD(KC_LEFT)
+#define _END🍏   LCMD(KC_RIGHT)
 
 // Base layers switchers
 #define _TOMAC   DF(MAC_BASE)
@@ -184,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV🍏] = LAYOUT_ansi_90(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  _______,  KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_ESC,   _______,  _______,  _______,            _______,
+        _______,  _______,  KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_PGUP,  _HOME🍏,  KC_UP,    _END🍏,   KC_ESC,   _______,  _______,  _______,            _______,
         _______,  _______,  KC_TAB,   KC_LALT,  KC_LCMD,  KC_LSFT,  XXXXXXX,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
         _______,  _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _ZOOUT🍏,  _ZOIN🍏,  _BAK🍏,  _FWD🍏,   _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      KC_ENT,             KC_BSPC,  _______,            _______,  _______,  _______),
