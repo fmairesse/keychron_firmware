@@ -225,6 +225,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case _T1LFT:
+        case _T2LFT:
+        case _T2LFT🍏:
+        case _T1RGT:
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case _T1LFT:
@@ -246,7 +258,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case _J:
         case _K:
         case _L:
-            return TAPPING_TERM + 30;
+            return TAPPING_TERM - 30;
         default:
             return TAPPING_TERM;
     }
