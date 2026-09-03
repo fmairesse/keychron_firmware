@@ -246,7 +246,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case _J:
         case _K:
         case _L:
-            return TAPPING_TERM + 30;
+            return TAPPING_TERM - 30;
         default:
             return TAPPING_TERM;
     }
