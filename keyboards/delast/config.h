@@ -5,9 +5,10 @@
 #define PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY
 #define CHORDAL_HOLD
-
+#define HOLD_ON_OTHER_KEY_PRESS
 /* Enable Chordal Hold logic */
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
 
 /* Flash Safety: Hold Escape (0,0) while plugging in to enter bootloader */
 #define BOOTMAGIC_LITE_ROW 0
