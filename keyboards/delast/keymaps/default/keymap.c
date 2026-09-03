@@ -267,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _TNPAD,    RALT(KC_Q),RALT(KC_W),RALT(KC_E),RALT(KC_R),RALT(KC_T),RALT(KC_Y),RALT(KC_L),RALT(KC_I),KC_7,      KC_8,      KC_9,
         _______,   RALT(KC_A),RALT(KC_S),RALT(KC_D),RALT(KC_F),RALT(KC_G),RALT(KC_L),RALT(KC_J),RALT(KC_K),KC_4,      KC_5,      KC_6,
         _______,   RALT(KC_Z),RALT(KC_X),RALT(KC_C),RALT(KC_V),RALT(KC_B),RALT(KC_N),RALT(KC_M),XXXXXXX,   KC_1,      KC_2,      KC_3,
-        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   _______,   KC_BSPC,   XXXXXXX,   KC_0,      KC_PCMM,   KC_PENT
+        _______,   _______,   _______,   XXXXXXX,   _______,   _______,   _______,   KC_BSPC,   XXXXXXX,   KC_0,      KC_PDOT,   KC_PENT
     ),
 
     [_NUM_LEFT] = LAYOUT(
