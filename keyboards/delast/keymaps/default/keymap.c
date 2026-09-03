@@ -303,16 +303,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE_LAYER_SWITCH] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
 };
 
-/**
- * CHORDAL HOLD / MOD-STACKING LOGIC
- * This function decides IF a hold should be triggered when ANOTHER key is pressed.
- */
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case _T1LFT:
-    case _T2LFT:
-    case _T1RGT:
-    case _T2RGT:
         return true;
     default:
         return false;
@@ -342,16 +335,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-
-
-// uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case _LSFT:
-//             return 400;
-//         default:
-//             return TAPPING_TERM;
-//     }
-// }
 
 // State variable to track the last pressed alpha key for the Magic Key logic
 uint16_t last_keycode = KC_NO;
