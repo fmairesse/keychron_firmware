@@ -307,6 +307,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case _T1LFT:
+    case _T1RGT:
         return true;
     default:
         return false;
