@@ -186,48 +186,9 @@ const key_override_t alt_up_slash_override = {
     .context           = NULL,
     .enabled           = NULL,
 };
-const key_override_t w_override = {
-    .trigger_mods      = MOD_MASK_CTRL | MOD_BIT_LALT | MOD_MASK_GUI,
-    .layers            = (1UL << _BASE),
-    .negative_mod_mask = 0,
-    .suppressed_mods   = 0,
-    .trigger           = KC_W,
-    .replacement       = KC_BACKSLASH,
-    .options           = ko_options_default | ko_option_one_mod,
-    .custom_action     = NULL,
-    .context           = NULL,
-    .enabled           = NULL,
-};
-const key_override_t z_override = {
-    .trigger_mods      = MOD_MASK_CTRL | MOD_BIT_LALT | MOD_MASK_GUI,
-    .layers            = (1UL << _BASE),
-    .negative_mod_mask = 0,
-    .suppressed_mods   = 0,
-    .trigger           = KC_Z,
-    .replacement       = KC_RIGHT_BRACKET,
-    .options           = ko_options_default | ko_option_one_mod,
-    .custom_action     = NULL,
-    .context           = NULL,
-    .enabled           = NULL,
-};
-const key_override_t macos_delete_word_override = {
-    .trigger_mods      = MOD_BIT_LGUI,
-    .layers            = (1UL << _MAC),
-    .negative_mod_mask = 0,
-    .suppressed_mods   = MOD_BIT_LGUI,
-    .trigger           = _BSPC,
-    .replacement       = LALT(KC_BSPC),
-    .options           = ko_options_default,
-    .custom_action     = NULL,
-    .context           = NULL,
-    .enabled           = NULL,
-};
 
 const key_override_t *key_overrides[] = {
     &alt_up_slash_override,
-    &w_override,
-    &z_override,
-    &macos_delete_word_override,
 };
 //#endregion Key Overrides
 
