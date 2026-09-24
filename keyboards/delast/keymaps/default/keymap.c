@@ -303,7 +303,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t last_keycode = KC_NO;
 
 // Custom behavior and Quick software reset handler
-// bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    // if (keycode == KC_Q) {
+    //     uint8_t mods = get_mods() | get_oneshot_mods();
+    //     if (record->event.pressed) {
+    //         if ((mods & ~MOD_MASK_SHIFT) == 0) {
+    //             clear_mods();
+    //             clear_oneshot_mods();
+    //             if (mods & MOD_MASK_SHIFT) {
+    //                 SEND_STRING("Q;");
+    //             } else {
+    //                 SEND_STRING("q;");
+    //             }
+    //             set_mods(mods);
+    //             return false;
+    //         }
+    //     } else {
+    //         if ((mods & ~MOD_MASK_SHIFT) == 0) {
+    //             return false;
+    //         }
+    //     }
+    // }
     // // MAGIC KEY INTERCEPT
     // if (keycode == _MAGIC) {
     //     // record->tap.count > 0 means QMK resolved this as a tap, not a hold.
@@ -364,5 +384,5 @@ uint16_t last_keycode = KC_NO;
     //     }
     // }
 
-//     return true;
-// }
+    return true;
+}
