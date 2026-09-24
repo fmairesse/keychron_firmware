@@ -116,7 +116,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _T1LFT🍏 TD(_TD_T1LFT_MAC)
 #define _T2LFT   LT(_NUM_RIGHT,KC_SPC)
 #define _T2RGT   LT(_NUM_LEFT,KC_SPC)
-#define _T1RGT   RALT_T(KC_DEL)
+#define _T1RGT   RALT_T(KC_LEFT_BRACKET)
 
 // Shortcuts
 #define _ZOIN    LCTL(KC_EQUAL)
