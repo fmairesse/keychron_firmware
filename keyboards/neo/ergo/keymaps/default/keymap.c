@@ -5,8 +5,9 @@ enum layers {
     BASE_🪟,
     BASE_🍏,
     BASE_LAYER_SWITCH,
-    NAV_🪟,
-    NAV_🍏,
+    NAV_RIGHT_🪟,
+    NAV_RIGHT_🍏,
+    NAV_LEFT,
     VOID
 };
 // #endregion Layers
@@ -92,22 +93,22 @@ tap_dance_action_t tap_dance_actions[] = {
 // #define _TAB     KC_TAB
 // #define _LSFT    LSFT_T(KC_NONUS_BACKSLASH)
 
-// // Left alphas
-// #define _A       LT(_NAV,KC_A)
-// #define _A🍏      LT(_NAV🍏,KC_A)
-// #define _S       LALT_T(KC_S)
-// #define _D       LCTL_T(KC_D)
-// #define _D🍏     LCMD_T(KC_D)
-// #define _F       LSFT_T(KC_F)
-// #define _V       KC_V
+// Left alphas
+#define _A🪟      LT(NAV_RIGHT_🪟,KC_A)
+#define _A🍏     LT(NAV_RIGHT_🍏,KC_A)
+#define _S       LALT_T(KC_S)
+#define _D🪟      LCTL_T(KC_D)
+#define _D🍏     LCMD_T(KC_D)
+#define _F       LSFT_T(KC_F)
+#define _V       KC_V
 
-// // Right alphas
-// #define _J       RSFT_T(KC_J)
-// #define _K       RCTL_T(KC_K)
-// #define _K🍏     RCMD_T(KC_K)
-// #define _L       LALT_T(KC_L)
-// #define _SCLN    LT(_NUM_LEFT,KC_SEMICOLON)
-// #define _COMM    KC_COMM
+// Right alphas
+#define _J       RSFT_T(KC_J)
+#define _K🪟      RCTL_T(KC_K)
+#define _K🍏     RCMD_T(KC_K)
+#define _L       LALT_T(KC_L)
+#define _SCLN    LT(NAV_LEFT,KC_SEMICOLON)
+#define _COMM    KC_COMM
 
 // // Right pinkies
 // #define _BSPC    LT(_FKEYS,KC_BSPC)
@@ -165,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_🪟] = LAYOUT(
         KC_DEL,  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NUHS, KC_BSPC,
         KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-        KC_PGDN, KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
+        KC_PGDN, KC_CAPS, _A🪟,    _S,      _D🪟,    _F,      KC_G,    KC_H,    _J,      _K🪟,    _L,      KC_SCLN, KC_QUOT,          KC_ENT,
         XXXXXXX, KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_RSFT,
                  KC_LCTL, KC_LGUI,                            T1LFT,   T2LFT🪟, T2RGT,   T1RGT,                              KC_LEFT, KC_DOWN, KC_RGHT
     ),
@@ -173,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_🍏] = LAYOUT(
         KC_DEL,  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NUHS, KC_BSPC,
         KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-        KC_PGDN, KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
+        KC_PGDN, KC_CAPS, _A🍏,    _S,      _D🍏,    _F,      KC_G,    KC_H,    _J,      _K🍏,    _L,      KC_SCLN, KC_QUOT,          KC_ENT,
         XXXXXXX, KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_RSFT,
                  KC_LCTL, GUI🍏,                              T1LFT,   T2LFT🍏, T2RGT,   T1RGT,                              KC_LEFT, KC_DOWN, KC_RGHT
     ),
@@ -186,29 +187,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //              _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
     // ),
 
-    // [NAV_🪟] = LAYOUT(
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //              _______, _______,                   _______, _______, _______, _______,                                      _______, _______, _______
-    // ),
+    [NAV_RIGHT_🪟] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
+    ),
 
-    // [NAV_🍏] = LAYOUT(
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-    //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //              _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
-    // ),
+    [NAV_RIGHT_🍏] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
+    ),
+
+    [NAV_LEFT] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
+    ),
 
     // [VOID] = LAYOUT(
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //              _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
+    //              _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
     // )
 };
 
 // clang-format on
+
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case T1LFT:
+    case T1RGT:
+        return true;
+    default:
+        return false;
+    }
+}
+
+/**
+ * PERMISSIVE HOLD
+ * Chordal Hold already settles same-hand rolls as taps, so home row mods
+ * don't need Permissive Hold disabled; doing so only breaks the
+ * opposite-hand nested-tap case Permissive Hold is meant to catch.
+ */
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case T2RGT:
+            return false;
+        default:
+            return true;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case T2RGT:
+            return TAPPING_TERM + 30;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
