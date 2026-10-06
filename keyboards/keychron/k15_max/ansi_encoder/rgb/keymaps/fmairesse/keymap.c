@@ -75,7 +75,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _T2LFT🍏 LCMD_T(KC_SPC)
 #define _T3LFT   MO(WIN_FN)
 #define _T3LFT🍏 MO(MAC_FN)
-#define _T2RGT   RALT_T(KC_SPC)
+#define _T2RGT   LT(_NUM, KC_SPC)
 #define _T1RGT   RALT_T(KC_DEL)
 
 // Shortcuts
@@ -194,10 +194,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT_ansi_90(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  _______, RALT(KC_D),KC_6,     KC_5,     KC_4,    RALT(KC_T),KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_ESC,   _______,  _______,  _______,            _______,
-        _______,  _______, RALT(KC_S),KC_3,     KC_2,     KC_1,    RALT(KC_G),KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TAB,   _______,            _______,            _______,
-        _______,  _______,           RALT(KC_Z),KC_9,     KC_8,    KC_7,     RALT(KC_B),XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,            _______,  _______, KC_0,                          KC_ENT,             _______,  _______,            _______,  _______,  _______),
+        _______,  _______,  XXXXXXX,  KC_6,     KC_5,     KC_4,    XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,            _______,
+        _______,  _______,  XXXXXXX,  KC_3,     KC_2,     KC_1,    XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,            _______,            _______,
+        _______,  _______,            XXXXXXX,  KC_9,     KC_8,    KC_7,      KC_0,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,            _______,  _______, KC_0,                          XXXXXXX,            _______,  _______,            _______,  _______,  _______),
 };
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
