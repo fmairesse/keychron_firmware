@@ -2,14 +2,13 @@
 
 //#region Layers
 enum layers {
-    BASE_🪟,
-    BASE_🍏,
-    BASE_LAYER_SWITCH,
-    NAV_RIGHT_🪟,
-    NAV_RIGHT_🍏,
-    NAV_LEFT,
-    FN_🪟,
-    FN_🍏,
+    MAC_BASE,
+    WIN_BASE,
+    MAC_FN,
+    WIN_FN,
+    MAC_NAV,
+    WIN_NAV,
+    NUM,
     VOID
 };
 // #endregion Layers
@@ -17,7 +16,7 @@ enum layers {
 
 //#region Tap Dance
 enum {
-    TD_GUI_🍏,
+    TD_MCTL_🍏,
     TD_T1LFT,
 };
 
@@ -76,11 +75,11 @@ static void t1lft_reset(tap_dance_state_t *state, void *user_data) {
 //#endregion Tap dance for T1LFT
 
 tap_dance_action_t tap_dance_actions[] = {
-    // TD_GUI_🍏:
+    // TD_MCTL_🍏:
     // tapped once: send MCTL,
     // tapped twice: send LCTL+DOWN (to hide mission control)
     // held: send LCMD
-    [TD_GUI_🍏]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mission_control_finished, mission_control_reset),
+    [TD_MCTL_🍏]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mission_control_finished, mission_control_reset),
     [TD_T1LFT]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, t1lft_finished, t1lft_reset),
 };
 //#endregion Tap Dance
@@ -91,135 +90,124 @@ tap_dance_action_t tap_dance_actions[] = {
 // // #define _MAGIC  _RSFT
 
 // // Left pinkies
-#define _ESC     KC_ESC //LT(_FKEYS,KC_ESC)
-// #define _TAB     KC_TAB
-// #define _LSFT    LSFT_T(KC_NONUS_BACKSLASH)
+#define ESC🪟    LT(WIN_FN,KC_ESC)
+#define ESC🍏    LT(MAC_FN,KC_ESC)
 
 // Left alphas
-#define _A🪟      LT(NAV_RIGHT_🪟,KC_A)
-#define _A🍏     LT(NAV_RIGHT_🍏,KC_A)
+#define _A🪟     LT(WIN_NAV,KC_A)
+#define _A🍏     LT(MAC_NAV,KC_A)
 #define _S       LALT_T(KC_S)
-#define _D🪟      LCTL_T(KC_D)
+#define _D🪟     LCTL_T(KC_D)
 #define _D🍏     LCMD_T(KC_D)
 #define _F       LSFT_T(KC_F)
 #define _V       KC_V
 
 // Right alphas
 #define _J       RSFT_T(KC_J)
-#define _K🪟      RCTL_T(KC_K)
+#define _K🪟     RCTL_T(KC_K)
 #define _K🍏     RCMD_T(KC_K)
 #define _L       LALT_T(KC_L)
-#define _SCLN    LT(NAV_LEFT,KC_SEMICOLON)
+#define _SCLN    LT(NAV,KC_SEMICOLON)
 #define _COMM    KC_COMM
 
-// // Right pinkies
-// #define _BSPC    LT(_FKEYS,KC_BSPC)
-// #define _RSFT    RSFT_T(KC_SLASH)
+// Right pinkies
+#define BSPC🪟   LT(WIN_FN,KC_BSPC)
+#define BSPC🍏   LT(MAC_FN,KC_BSPC)
 
 // Last row
-#define GUI🍏   TD(TD_GUI_🍏)
 #define T1LFT   TD(TD_T1LFT)
 #define T2LFT🪟 RCTL_T(KC_SPC)
 #define T2LFT🍏 RCMD_T(KC_SPC)
 #define T2RGT   KC_SPC //LT(_NUM_LEFT,KC_SPC)
 #define T1RGT   RALT_T(KC_LEFT_BRACKET)
 
-// // Shortcuts
-// #define _ZOIN    LCTL(KC_EQUAL)
-// #define _ZOIN🍏  LCMD(KC_EQUAL)
-// #define _ZOOUT   LCTL(KC_MINUS)
-// #define _ZOOUT🍏 LCMD(KC_MINUS)
-// #define _BACK🍏  LCMD(KC_LBRC)
-// #define _FWD🍏   LCMD(KC_RBRC)
-// #define _MCTL🍏  TD(_TD_MCTL) // Mission control
-// #define _LSCR🍏  LCTL(LGUI(KC_Q)) // Lock screen
-// #define _LPAD🍏  LCTL(LGUI(LALT(KC_B)))
+// Shortcuts
+#define ZOIN🪟  LCTL(KC_EQUAL)
+#define ZOIN🍏  LCMD(KC_EQUAL)
+#define ZOOUT🪟 LCTL(KC_MINUS)
+#define ZOOUT🍏 LCMD(KC_MINUS)
+#define BAK🪟   LCTL_T(KC_WBAK)
+#define BAK🍏   LCMD(KC_LBRC)
+#define FWD🪟   LSFT_T(KC_WFWD)
+#define FWD🍏   LCMD(KC_RBRC)
+#define MCTL🍏  TD(TD_MCTL_🍏) // Mission control
+#define LSCR🍏  LCTL(LGUI(KC_Q)) // Lock screen
+#define LPAD🍏  LCTL(LGUI(LALT(KC_B)))
 
 // //Base layer switch
-#define _TOMAC   DF(BASE_🍏)
-#define _TOWIN   DF(BASE_🪟)
+#define TOMAC   DF(MAC_BASE)
+#define TOWIN   DF(WIN_BASE)
 //#endregion Aliases
 
 // #region Combos
-enum combo_events { _BOOT_COMBO, _BASE_LAYER_COMBO, _BASE_🍏_LAYER_COMBO };
+enum combo_events { BOOT_COMBO🪟, BOOT_COMBO🍏 };
 
-const uint16_t PROGMEM boot_combo[]       = {KC_LCTL, _ESC, T2RGT, COMBO_END};
-const uint16_t PROGMEM base_layer_combo[] = {KC_LEFT, KC_RIGHT, COMBO_END};
+const uint16_t PROGMEM boot_combo🪟[]     = {KC_LCTL, ESC🪟, T2RGT, COMBO_END};
+const uint16_t PROGMEM boot_combo🍏[]     = {KC_LCTL, ESC🍏, T2RGT, COMBO_END};
 
 combo_t key_combos[] = {
-    [_BOOT_COMBO]       = COMBO(boot_combo, QK_BOOT),
-    [_BASE_LAYER_COMBO] = COMBO_ACTION(base_layer_combo),
+    [BOOT_COMBO🪟]       = COMBO(boot_combo🪟, QK_BOOT),
+    [BOOT_COMBO🍏]       = COMBO(boot_combo🍏, QK_BOOT),
 };
-void process_combo_event(uint16_t combo_index, bool pressed) {
-    switch (combo_index) {
-        case _BASE_LAYER_COMBO:
-            if (pressed) {
-                layer_on(BASE_LAYER_SWITCH);
-            } else {
-                layer_off(BASE_LAYER_SWITCH);
-            }
-            break;
-    }
-}
 // #endregion Combos
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [BASE_🪟] = LAYOUT(
-        KC_DEL,  KC_CAPS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NUHS, KC_BSPC,
+    [MAC_BASE] = LAYOUT(
+        KC_DEL,  ESC🍏,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NUHS, BSPC🍏,
+        KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+        KC_PGDN, KC_ESC,  _A🍏,    _S,      _D🍏,    _F,      KC_G,    KC_H,    _J,      _K🍏,    _L,      KC_SCLN, KC_QUOT,          KC_ENT,
+        XXXXXXX, KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_RSFT,
+                 KC_LCTL, MCTL🍏,                             T1LFT,   T2LFT🍏, T2RGT,   T1RGT,                              KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+    [WIN_BASE] = LAYOUT(
+        KC_DEL,  ESC🪟,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NUHS, BSPC🪟,
         KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
         KC_PGDN, KC_ESC,  _A🪟,    _S,      _D🪟,    _F,      KC_G,    KC_H,    _J,      _K🪟,    _L,      KC_SCLN, KC_QUOT,          KC_ENT,
         XXXXXXX, KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_RSFT,
                  KC_LCTL, KC_LGUI,                            T1LFT,   T2LFT🪟, T2RGT,   T1RGT,                              KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [BASE_🍏] = LAYOUT(
-        KC_DEL,  KC_CAPS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_NUHS, KC_BSPC,
-        KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-        KC_PGDN, KC_ESC,  _A🍏,    _S,      _D🍏,    _F,      KC_G,    KC_H,    _J,      _K🍏,    _L,      KC_SCLN, KC_QUOT,          KC_ENT,
-        XXXXXXX, KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_RSFT,
-                 KC_LCTL, GUI🍏,                              T1LFT,   T2LFT🍏, T2RGT,   T1RGT,                              KC_LEFT, KC_DOWN, KC_RGHT
-    ),
 
-    [NAV_RIGHT_🪟] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
-    ),
-
-    [NAV_RIGHT_🍏] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
-    ),
-
-    [NAV_LEFT] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
-    ),
-
-    [FN_🪟] = LAYOUT(
+    [MAC_FN] = LAYOUT(
         _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
-        _______, _______, _______, _TOWIN,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, TOWIN,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _TOMAC,  _______, _______, _______, _______, _______,
-                 _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TOMAC,   _______, _______, _______, _______, _______,
+        _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
+    ),
+    [WIN_FN] = LAYOUT(
+        _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
+        _______, _______, _______, TOWIN,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TOMAC,   _______, _______, _______, _______, _______,
+        _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
     ),
 
-    [FN_🍏] = LAYOUT(
-        _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
-        _______, _______, _______, _TOWIN,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _TOMAC,  _______, _______, _______, _______, _______,
-                 _______, _______,                   _______, _______, _______, _______,                                     _______, _______, _______
+    [MAC_NAV] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_ESC,  _______, _______, _______,
+        _______, _______, KC_TAB,  KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_TAB,  _______,          _______,
+        _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ZOOUT🍏, ZOIN🍏,  BAK🍏,   FWD🍏,   _______, _______, _______, _______,
+        _______, _______,                            _______, _______, KC_ENT,  KC_BSPC,                            _______, _______, _______
     ),
+    [WIN_NAV] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_ESC,  _______, _______, _______,
+        _______, _______, KC_TAB,  KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_TAB,  _______,          _______,
+        _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ZOOUT🪟, ZOIN🪟,  BAK🪟,   FWD🪟,   _______, _______, _______, _______,
+        _______, _______,                            _______, _______, KC_ENT,  KC_BSPC,                            _______, _______, _______
+    ),
+
+    [NUM] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, KC_3,    KC_2,    KC_1,    _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, KC_0,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                 _______, _______,                            _______, _______, _______, _______,                            _______, _______, _______
+    ),
+
+
 
     // [VOID] = LAYOUT(
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -266,4 +254,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-
