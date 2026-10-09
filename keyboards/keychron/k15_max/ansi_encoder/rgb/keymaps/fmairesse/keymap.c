@@ -92,6 +92,7 @@ tap_dance_action_t tap_dance_actions[] = {
 #define _SPTL🍏  LCTL(LGUI(LALT(KC_SPC))) // Spotlight
 #define _HOME🍏  LCMD(KC_LEFT)
 #define _END🍏   LCMD(KC_RIGHT)
+#define _PSCR🍏  LCTL(LSFT(LGUI(KC_4)))
 
 // Base layers switchers
 #define _TOMAC   DF(MAC_BASE)
@@ -154,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_FN] = LAYOUT_ansi_90(
         RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_MCTRL, KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY, KC_MNXT,   KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
         _______,  _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            KC_PGUP,
-        _______,  _______,  _______,  _TOWIN,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,  _______,  _______,  _TOWIN,   _______,  KC_MCTRL, _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  KC_CAPS,  _______,  _PSCR🍏,  _______,  _______,  _______,  _______,  _______,  _______,  _LSCR🍏,  _______,  _______,            _______,            _______,
         _______,  _______,            _______,  _______,  _______,  _______,  KC_LNPAD, _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,            _______,  _______,  _______,                      _SPTL🍏,            _______,  _______,            _______,  _______,  _______),
