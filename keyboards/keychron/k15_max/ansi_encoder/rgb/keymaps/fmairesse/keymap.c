@@ -137,6 +137,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,            _______,  _______,  _______,                      KC_ENT,             KC_BSPC,  _______,            A(KC_LEFT),_______, A(KC_RIGHT)
     ),
 };
+
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT_ansi_90(
+        '*',    '*',      '*',        '*',      '*',      '*',      '*',      '*',      '*',      '*',      '*',      '*',      '*',      '*',      '*',                '*',
+        '*',    '*',      'L',        'L',      'L',      'L',      'L',      'R',      'R',      'R',      'R',      'R',      'R',      'R',      '*',      'R',
+        '*',    '*',      'L',        'L',      'L',      'L',      'L',      'R',      'R',      'R',      'R',      'R',      'R',      'R',      'R',                '*',
+        '*',    '*',      'L',        'L',      'L',      'L',      'L',      'R',      'R',      'R',      'R',      'R',      'R',                '*',                '*',
+        '*',    '*',                  'L',      'L',      'L',      'L',      'R',      'R',      'R',      'R',      'R',      'R',      'R',      '*',      '*',
+        '*',    '*',      '*',                  '*',      '*',      '*',                          '*',                '*',      '*',                '*',      '*',      '*'
+
+    );
 // clang-format on
 #pragma endregion Keymaps
 
@@ -157,21 +168,18 @@ void keyboard_post_init_user(void) {
     default_layer_set(1UL << _DEFAULT_LAYER);
 }
 
-bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record,
-                     uint16_t other_keycode, keyrecord_t *other_record) {
-    // Exceptionally allow some one-handed chords for hotkeys.
-    switch (tap_hold_keycode) {
-        case T1LFT🪟:
-        case T1LFT🍏:
-        case T2LFT🪟:
-        case T2LFT🍏:
-        case T2RGT:
-        case LALT_T(KC_MCTL):
-            return true;
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case T1LFT🪟:
+    case T1LFT🍏:
+    case T2LFT🪟:
+    case T2LFT🍏:
+    case T2RGT:
+    case T3RGT:
+        return true;
+    default:
+        return false;
     }
-
-    // Otherwise defer to the opposite hands rule.
-    return get_chordal_hold_default(tap_hold_record, other_record);
 }
 
 #pragma endregion Functions
