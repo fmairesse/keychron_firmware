@@ -32,5 +32,6 @@
             "splash": true,
             "typing_heatmap": true
         }
-    }
+    },
+    "modules": ["getreuer/cyclotab", "getreuer/layer_lock", "getreuer/select_word"]
 }
