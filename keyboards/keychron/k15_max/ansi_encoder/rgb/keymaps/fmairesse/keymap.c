@@ -291,5 +291,46 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+#pragma region RGB
+static uint8_t saved_rgb_mode = RGB_MATRIX_DEFAULT_MODE;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    static bool on_locked_layer = false;
+
+    uint8_t current_layer = get_highest_layer(state);
+    bool is_locked_layer = (current_layer == WIN_NAV_LOCKED || current_layer == MAC_NAV_LOCKED);
+
+    if (is_locked_layer && !on_locked_layer) {
+        // Entering locked layer
+        saved_rgb_mode = rgb_matrix_get_mode();
+        rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
+        // rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+        // rgb_matrix_sethsv(170, 255, 255);
+    } else if (!is_locked_layer && on_locked_layer) {
+        // Leaving locked layer
+        rgb_matrix_mode(saved_rgb_mode);
+    }
+
+    on_locked_layer = is_locked_layer;
+    return state;
+}
+
+bool led_update_user(led_t led_state) {
+    static bool caps_lock_active = false;
+
+    if (led_state.caps_lock && !caps_lock_active) {
+        // Caps Lock activated
+        caps_lock_active = true;
+        saved_rgb_mode = rgb_matrix_get_mode();
+        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+        rgb_matrix_sethsv(0, 255, 255);
+    } else if (!led_state.caps_lock && caps_lock_active) {
+        // Caps Lock deactivated
+        caps_lock_active = false;
+        rgb_matrix_mode(saved_rgb_mode);
+    }
+    return true;
+}
+#pragma endregion RGB
 
 #pragma endregion Functions
