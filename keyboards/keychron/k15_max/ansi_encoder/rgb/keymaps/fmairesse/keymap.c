@@ -155,6 +155,25 @@ combo_t key_combos[] = {
 };
 #pragma endregion Combos
 
+//#region Key Overrides
+const key_override_t w_override = {
+    .trigger_mods      = MOD_MASK_CTRL | MOD_BIT_LALT | MOD_MASK_GUI,
+    .layers            = (1UL << WIN_BASE),
+    .negative_mod_mask = 0,
+    .suppressed_mods   = 0,
+    .trigger           = KC_W,
+    .replacement       = KC_NONUS_BACKSLASH,
+    .options           = ko_options_default | ko_option_one_mod,
+    .custom_action     = NULL,
+    .context           = NULL,
+    .enabled           = NULL,
+};
+
+const key_override_t *key_overrides[] = {
+    &w_override,
+};
+//#endregion Key Overrides
+
 #pragma region Keymaps
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
