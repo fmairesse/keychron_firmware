@@ -81,9 +81,9 @@ tap_dance_action_t tap_dance_actions[] = {
 #define ZOIN🍏   LCMD(KC_EQUAL)
 #define ZOOUT🪟  LCTL(KC_MINUS)
 #define ZOOUT🍏  LCMD(KC_MINUS)
-#define BAK🪟    KC_WBAK
+#define BAK🪟    LALT(KC_LEFT)
 #define BAK🍏    LCMD(KC_LBRC)
-#define FWD🪟    KC_WFWD
+#define FWD🪟    LALT(KC_RIGHT)
 #define FWD🍏    LCMD(KC_RBRC)
 #define LSCR🍏   LCTL(LGUI(KC_Q)) // Lock screen
 #define SPTL🍏   LCAG(KC_SPC) // Spotlight
@@ -216,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,
         _______,   _______,   C(S(TAB)), C(TAB),    A(TAB),    KC_LWIN,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    _______,   _______,   _______,              KC_PGUP,
         _______,   _______,   KC_4,      KC_3,      KC_2,      KC_1,      KC_0,      KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,              _______,              _______,
-        _______,   _______,              XXXXXXX,   XXXXXXX,   KC_WBAK,   KC_WFWD,   KC_CAPS,   XXXXXXX,   NVLK🪟,    C(KC_LEFT),SELLINE,   C(KC_RGHT),S(KC_TAB), _______,   S(KC_UP),
+        _______,   _______,              XXXXXXX,   XXXXXXX,   BAK🪟,     FWD🪟,     KC_CAPS,   XXXXXXX,   NVLK🪟,    C(KC_LEFT),SELLINE,   C(KC_RGHT),S(KC_TAB), _______,   S(KC_UP),
         _______,   _______,   _______,              _______,   _______,   _______,                         NVSPC,                C(KC_BSPC),C(KC_DEL),            S(KC_LEFT),S(KC_DOWN),S(KC_RIGHT)
     ),
     [MAC_NAV] = LAYOUT_ansi_90(
