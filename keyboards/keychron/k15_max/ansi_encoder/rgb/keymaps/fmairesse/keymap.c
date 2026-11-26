@@ -302,8 +302,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case T1LFT🪟:
         case T1LFT🍏:
-        case SPC🪟:
-        case SPC🍏:
         case T1RGT:
             return true;
         default:
