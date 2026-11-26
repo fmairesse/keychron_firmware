@@ -90,6 +90,11 @@ tap_dance_action_t tap_dance_actions[] = {
 #define PSCR🍏   LCTL(LSFT(LGUI(KC_4)))
 #define HOME🍏   LCMD(KC_LEFT)
 #define END🍏    LCMD(KC_RIGHT)
+#define EXPSEL🍏 LCTL(LSFT(LCMD(KC_RIGHT)))   // Expand selection
+#define SHRSEL🍏 LCTL(LSFT(LCMD(KC_LEFT)))    // Shrink selection
+#define MTCGBR🍏 LCMD(LSFT(KC_BACKSLASH))     // Matching bracket
+#define FOLD🍏   LALT(LCMD(KC_LEFT_BRACKET))  // Fold
+#define UNFOLD🍏 LALT(LCMD(KC_RIGHT_BRACKET)) // Unfold
 
 // Left alphas
 #define _A🪟     LWIN_T(KC_A)
@@ -213,16 +218,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [WIN_NAV] = LAYOUT_ansi_90(
         _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,
-        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,
-        _______,   _______,   C(S(TAB)), C(TAB),    A(TAB),    KC_LWIN,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    _______,   _______,   _______,              KC_PGUP,
+        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              KC_PGUP,
+        _______,   _______,   C(S(TAB)), C(TAB),    A(TAB),    KC_LWIN,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    _______,   _______,   _______,              _______,
         _______,   _______,   KC_4,      KC_3,      KC_2,      KC_1,      KC_0,      KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,              _______,              _______,
         _______,   _______,              XXXXXXX,   XXXXXXX,   BAK🪟,     FWD🪟,     KC_CAPS,   XXXXXXX,   NVLK🪟,    C(KC_LEFT),SELLINE,   C(KC_RGHT),S(KC_TAB), _______,   S(KC_UP),
         _______,   _______,   _______,              _______,   _______,   _______,                         NVSPC,                C(KC_BSPC),C(KC_DEL),            S(KC_LEFT),S(KC_DOWN),S(KC_RIGHT)
     ),
     [MAC_NAV] = LAYOUT_ansi_90(
         _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,
-        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,
-        _______,   _______,   C(S(TAB)), C(TAB),    A(TAB),    KC_LPAD,   SPTL🍏,    KC_PGUP,   HOME🍏,    KC_UP,     END🍏,     KC_ESC,    _______,   _______,   _______,              KC_PGUP,
+        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   SHRSEL🍏,  EXPSEL🍏,  _______,              KC_PGUP,
+        _______,   _______,   C(S(TAB)), C(TAB),    A(TAB),    KC_LPAD,   SPTL🍏,    KC_PGUP,   HOME🍏,    KC_UP,     END🍏,     KC_ESC,    FOLD🍏,    UNFOLD🍏,  MTCGBR🍏,             _______,
         _______,   _______,   KC_4,      KC_3,      KC_2,      KC_1,      KC_0,      KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,              _______,              _______,
         _______,   _______,              XXXXXXX,   XXXXXXX,   BAK🍏,     FWD🍏,     KC_CAPS,   XXXXXXX,   NVLK🍏,    A(KC_LEFT),SELLINE,   A(KC_RGHT),S(KC_TAB), _______,   S(KC_UP),
         _______,   _______,   _______,              _______,   _______,   _______,                         NVSPC,                A(KC_BSPC),A(KC_DEL),            S(KC_LEFT),S(KC_DOWN),S(KC_RIGHT)
@@ -233,12 +238,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   _______,   C(KC_Y),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   KC_HOME,   KC_UP,     KC_END,    KC_ESC,    _______,   _______,   _______,              KC_PGUP,
         _______,   _______,   KC_LWIN,   KC_LALT,   KC_LCTL,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,              KC_ENT,               _______,
         _______,   _______,              C(KC_Z),   C(KC_X),   C(KC_C),   C(KC_V),   XXXXXXX,   XXXXXXX,   NVLK🪟,    C(KC_LEFT),SELLINE,   C(KC_RGHT),S(KC_TAB), _______,   KC_UP,
-        _______,   _______,   _______,              _______,   KC_SPC,    _______,                         NVSPC,                C(KC_BSPC),C(KC_DEL),            KC_LEFT,  KC_DOWN,   KC_RIGHT
+        _______,   _______,   _______,              _______,   KC_SPC,    _______,                         NVSPC,                C(KC_BSPC),C(KC_DEL),            KC_LEFT,   KC_DOWN,   KC_RIGHT
     ),
     [MAC_NAV_LOCKED] = LAYOUT_ansi_90(
         _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,              _______,
-        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   KC_BSPC,              _______,
-        _______,   _______,   G(KC_Y),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   HOME🍏,    KC_UP,     END🍏,     KC_ESC,    _______,   _______,   KC_ENT,               KC_PGUP,
+        _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   KC_BSPC,              KC_PGUP,
+        _______,   _______,   G(KC_Y),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_PGUP,   HOME🍏,    KC_UP,     END🍏,     KC_ESC,    _______,   _______,   KC_ENT,               _______,
         _______,   _______,   KC_LCTL,   KC_LALT,   KC_LCMD,   KC_LSFT,   XXXXXXX,   KC_PGDN,   KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_TAB,    _______,              _______,              _______,
         _______,   _______,              G(KC_Z),   G(KC_X),   G(KC_C),   G(KC_V),   XXXXXXX,   XXXXXXX,   NVLK🍏,    A(KC_LEFT),SELLINE,   A(KC_RGHT),S(KC_TAB), _______,   S(KC_UP),
         _______,   _______,   _______,              _______,   KC_SPC,    _______,                         NVSPC,                A(KC_BSPC),A(KC_DEL),            S(KC_LEFT),S(KC_DOWN),S(KC_RIGHT)
