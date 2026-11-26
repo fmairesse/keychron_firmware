@@ -97,21 +97,21 @@ tap_dance_action_t tap_dance_actions[] = {
 #define UNFOLD🍏 LALT(LCMD(KC_RIGHT_BRACKET)) // Unfold
 
 // Left alphas
-#define _A🪟     LWIN_T(KC_A)
-#define _A🍏     LCTL_T(KC_A)
 #define _S       LALT_T(KC_S)
 #define _D🪟     LCTL_T(KC_D)
 #define _D🍏     LCMD_T(KC_D)
 #define _F       LSFT_T(KC_F)
 #define _F🍏     LSFT_T(KC_F)
+#define _G🪟     LWIN_T(KC_G)
+#define _G🍏     LCTL_T(KC_G)
 
 // Right alphas
+#define _H🪟     LWIN_T(KC_H) // left Win so that Ubuntu triggers "mission control"
+#define _H🍏     RCTL_T(KC_H)
 #define _J       RSFT_T(KC_J)
 #define _K🪟     RCTL_T(KC_K)
 #define _K🍏     RCMD_T(KC_K)
 #define _L       LALT_T(KC_L)
-#define _SCLN🪟  LWIN_T(KC_SCLN) // left Win so that Ubuntu triggers "mission control"
-#define _SCLN🍏  RCTL_T(KC_SCLN)
 
 #pragma region Thumbs
 #define T1LFT🍏  TD(TD_MCTL_🍏)
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE,   KC_ESC,    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    KC_INS,               KC_DEL,
         SPTL🍏,    KC_GRV,    KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_MINS,   KC_EQL,    KC_BSPC,              KC_PGDN,
         MC_2,      TAB🍏,     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_LBRC,   KC_RBRC,   KC_BSLS,              HOME🍏,
-        KC_CAPS,   KC_ESC,    _A🍏,      _S,        _D🍏,      _F,        KC_G,      KC_H,      _J,        _K🍏,      _L,        _SCLN🍏,   KC_QUOT,              KC_ENT,               END🍏,
+        KC_CAPS,   KC_ESC,    KC_A,      _S,        _D🍏,      _F,        _G🍏,      _H🍏,      _J,        _K🍏,      _L,        KC_SCLN,   KC_QUOT,              KC_ENT,               END🍏,
         KC_LNPAD,  KC_LSFT,              KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      KC_B,      KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH,   KC_RSFT,   KC_UP,
         KC_MCTRL,  KC_LCTL,   KC_LALT,              T1LFT🍏,   SPC🍏,     T3LFT🍏,                         SPC🍏,                T1RGT,     T0RGT🍏,              KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE,   KC_ESC,    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    KC_INS,               KC_DEL,
         MC_1,      KC_GRV,    KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_MINS,   KC_EQL,    KC_BSPC,              KC_PGDN,
         MC_2,      KC_TAB,    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_LBRC,   KC_RBRC,   KC_BSLS,              KC_HOME,
-        KC_CAPS,   KC_ESC,    _A🪟,      _S,        _D🪟,      _F,        KC_G,      KC_H,      _J,        _K🪟,      _L,        _SCLN🪟,   KC_QUOT,              KC_ENT,               KC_END,
+        KC_CAPS,   KC_ESC,    KC_A,      _S,        _D🪟,      _F,        _G🪟,      _H🪟,      _J,        _K🪟,      _L,        KC_SCLN,   KC_QUOT,              KC_ENT,               KC_END,
         MC_4,      KC_LSFT,              KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      KC_B,      KC_N,      KC_M,      KC_COMM,   KC_DOT,    RSFT_T(KC_SLSH),   KC_RSFT,   KC_UP,
         MC_5,      KC_LWIN,   KC_LALT,              T1LFT🪟,   SPC🪟,     T3LFT🪟,                         SPC🪟,                T1RGT,     T0RGT🪟,              KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
